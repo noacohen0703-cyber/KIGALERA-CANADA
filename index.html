@@ -3,80 +3,227 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIGALERA CANADA 🍁</title>
+  <title>KIGALERA CANADA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --noir: #111111;
+      --blanc: #FAFAF8;
+      --vert: #1A5C3A;
+      --vert-clair: #E8F2EC;
+      --gris: #888;
+      --gris-clair: #F0F0EE;
+      --bordure: #E0E0DC;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9f9f7; color: #1a1a1a; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--blanc);
+      color: var(--noir);
+      font-size: 15px;
+      line-height: 1.6;
+    }
 
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-    .nav-logo { font-size: 17px; font-weight: 600; }
-    .nav-links { display: flex; gap: 1.5rem; }
-    .nav-link { font-size: 14px; color: #666; cursor: pointer; padding: 4px 0; border-bottom: 2px solid transparent; transition: all 0.2s; }
-    .nav-link:hover, .nav-link.active { color: #0f6e56; border-bottom-color: #0f6e56; }
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+      background: var(--blanc);
+      border-bottom: 1px solid var(--bordure);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--noir);
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-link {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--gris);
+      cursor: pointer;
+      text-transform: uppercase;
+      border-bottom: 1.5px solid transparent;
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--noir);
+      border-bottom-color: var(--vert);
+    }
 
-    .hero { background: linear-gradient(135deg, #042c53 0%, #0f6e56 100%); padding: 5rem 2rem; text-align: center; color: white; }
-    .hero-tag { display: inline-block; background: rgba(255,255,255,0.15); font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 1rem; letter-spacing: 1px; }
-    .hero h1 { font-size: 42px; font-weight: 700; margin-bottom: 0.5rem; }
-    .hero-sub { font-size: 16px; opacity: 0.8; margin-bottom: 2rem; }
-    .hero-dates { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 6px 18px; font-size: 14px; }
-    .hero-btns { display: flex; gap: 12px; justify-content: center; margin-top: 1.5rem; }
-    .btn-white { background: white; color: #0f6e56; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
-    .btn-outline { background: transparent; color: white; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid rgba(255,255,255,0.5); }
-
-    .section { padding: 2.5rem 2rem; max-width: 960px; margin: 0 auto; }
-    .section-title { font-size: 22px; font-weight: 600; margin-bottom: 0.4rem; }
-    .section-sub { font-size: 14px; color: #888; margin-bottom: 1.5rem; }
-
-    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 2.5rem; }
-    .stat-card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 1.2rem; text-align: center; }
-    .stat-num { font-size: 28px; font-weight: 700; color: #0f6e56; }
-    .stat-label { font-size: 12px; color: #888; margin-top: 3px; }
-
+    /* PAGES */
     .page { display: none; }
     .page.active { display: block; }
 
-    .journal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-    .journal-card { background: white; border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
-    .journal-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
-    .journal-body { padding: 1rem; }
-    .journal-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .journal-day { font-size: 11px; background: #e1f5ee; color: #0f6e56; padding: 2px 10px; border-radius: 20px; font-weight: 600; }
-    .journal-author { font-size: 12px; color: #999; }
-    .journal-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
-    .journal-preview { font-size: 13px; color: #666; line-height: 1.5; }
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 92vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1519181245277-cffeb31da948?w=1200') center/cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 2.5rem;
+      color: white;
+      max-width: 800px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      margin-bottom: 1rem;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 6px; }
+    .hero-actions { display: flex; gap: 12px; }
+    .btn-hero-primary {
+      background: white;
+      color: var(--noir);
+      padding: 11px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-hero-primary:hover { opacity: 0.88; }
+    .btn-hero-secondary {
+      background: transparent;
+      color: white;
+      padding: 11px 24px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .btn-hero-secondary:hover { border-color: white; }
 
-    .itinerary { display: flex; flex-direction: column; }
-    .itin-item { display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid #f0f0f0; }
+    /* SECTION */
+    .section { padding: 4rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--bordure); padding-bottom: 1.2rem; display: flex; align-items: baseline; justify-content: space-between; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+    .section-sub { font-size: 13px; color: var(--gris); }
+
+    /* STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
+    .stat-card { background: var(--blanc); padding: 2rem 1.5rem; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; color: var(--vert); line-height: 1; }
+    .stat-label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); margin-top: 6px; }
+
+    /* JOURNAL */
+    .journal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
+    .journal-card { background: var(--blanc); overflow: hidden; transition: background 0.2s; cursor: pointer; }
+    .journal-card:hover { background: var(--gris-clair); }
+    .journal-img { height: 180px; overflow: hidden; }
+    .journal-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .journal-card:hover .journal-img img { transform: scale(1.03); }
+    .journal-img-placeholder { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    .journal-body { padding: 1.2rem 1.4rem 1.4rem; }
+    .journal-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .journal-tag {
+      font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+      background: var(--vert-clair); color: var(--vert); padding: 3px 8px;
+    }
+    .journal-author { font-size: 12px; color: var(--gris); }
+    .journal-title { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
+    .journal-preview { font-size: 13px; color: var(--gris); line-height: 1.6; }
+
+    /* ITINERAIRE */
+    .itin-list { display: flex; flex-direction: column; }
+    .itin-item { display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid var(--bordure); }
     .itin-item:last-child { border-bottom: none; }
-    .itin-left { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
-    .itin-day-label { font-size: 11px; font-weight: 600; color: #0f6e56; margin-bottom: 6px; }
-    .itin-dot { width: 10px; height: 10px; border-radius: 50%; background: #1d9e75; flex-shrink: 0; }
-    .itin-line { flex: 1; width: 1px; background: #e5e5e5; margin-top: 4px; }
-    .itin-city { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-    .itin-desc { font-size: 13px; color: #666; line-height: 1.6; }
+    .itin-left { padding: 2rem 1.5rem 2rem 0; border-right: 1px solid var(--bordure); }
+    .itin-dates { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+    .itin-nuits { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--vert); }
+    .itin-right { padding: 2rem 0 2rem 2rem; }
+    .itin-city { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; }
+    .itin-photo { width: 100%; height: 240px; object-fit: cover; display: block; }
 
-    .photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .photo-card { border-radius: 10px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 32px; overflow: hidden; }
-    .photo-card img { width: 100%; height: 100%; object-fit: cover; }
-    .photos-note { font-size: 13px; color: #aaa; text-align: center; margin-top: 1rem; }
+    /* PHOTOS */
+    .photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
+    .photo-cell { aspect-ratio: 1; overflow: hidden; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; }
+    .photo-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .photo-cell:hover img { transform: scale(1.04); }
+    .photo-placeholder { font-size: 13px; color: var(--gris); font-weight: 500; text-align: center; padding: 1rem; }
 
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
-    .team-card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 1.2rem; text-align: center; }
-    .avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; margin: 0 auto 10px; }
-    .team-name { font-size: 14px; font-weight: 600; }
-    .team-role { font-size: 12px; color: #999; margin-top: 2px; }
+    /* EQUIPE */
+    .equipe-section { margin-bottom: 3rem; }
+    .equipe-role { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--vert); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--vert-clair); }
+    .equipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
+    .equipe-card { background: var(--blanc); padding: 1.4rem; }
+    .equipe-initiales { width: 44px; height: 44px; background: var(--vert-clair); color: var(--vert); font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+    .equipe-nom { font-size: 14px; font-weight: 600; }
+    .equipe-fonction { font-size: 12px; color: var(--gris); margin-top: 2px; }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 28px; }
-      nav { padding: 1rem; }
-      .nav-links { gap: 0.8rem; }
+    /* PARTICIPANTS */
+    .participants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
+    .participant-item { background: var(--blanc); padding: 0.9rem 1rem; font-size: 13px; font-weight: 500; }
+    .participant-item:hover { background: var(--gris-clair); }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-link { font-size: 11px; }
+      .hero-content { padding: 2rem 1.2rem; }
+      .section { padding: 2.5rem 1.2rem; }
+      .itin-item { grid-template-columns: 1fr; }
+      .itin-left { border-right: none; border-bottom: 1px solid var(--bordure); padding: 1rem 0; }
+      .itin-right { padding: 1rem 0; }
+      .stats-row { grid-template-columns: 1fr; }
+      .photos-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <span class="nav-logo">🍁 KIGALERA CANADA</span>
+  <div class="nav-logo">KIGALERA CANADA</div>
   <div class="nav-links">
     <span class="nav-link active" onclick="showPage('home', this)">Accueil</span>
     <span class="nav-link" onclick="showPage('journal', this)">Journal</span>
@@ -89,39 +236,50 @@
 <!-- ACCUEIL -->
 <div id="home" class="page active">
   <div class="hero">
-    <div class="hero-tag">🏕️ EEIF · Été 2026</div>
-    <h1>KIGALERA CANADA</h1>
-    <div class="hero-sub">L'aventure canadienne des pifs</div>
-    <div class="hero-dates">📅 Juillet 2026 · 36 participants</div>
-    <div class="hero-btns">
-      <button class="btn-white" onclick="showPage('journal', document.querySelectorAll('.nav-link')[1])">Lire le journal</button>
-      <button class="btn-outline" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itinéraire</button>
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">EEIF &mdash; Été 2026</div>
+      <h1>KIGALERA<br>CANADA</h1>
+      <div class="hero-meta">
+        <span>7 &ndash; 21 juillet 2026</span>
+        <span>36 participants</span>
+        <span>3 villes</span>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-hero-primary" onclick="showPage('journal', document.querySelectorAll('.nav-link')[1])">Lire le journal</button>
+        <button class="btn-hero-secondary" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itinéraire</button>
+      </div>
     </div>
   </div>
+
   <div class="section">
     <div class="stats-row">
       <div class="stat-card"><div class="stat-num">36</div><div class="stat-label">Participants</div></div>
-      <div class="stat-card"><div class="stat-num">17</div><div class="stat-label">Jours</div></div>
-      <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Villes</div></div>
+      <div class="stat-card"><div class="stat-num">15</div><div class="stat-label">Jours</div></div>
+      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Villes</div></div>
     </div>
-    <div class="section-title">Derniers posts</div>
-    <div class="section-sub">Les pifs racontent leur aventure</div>
-    <div class="journal-grid">
 
+    <div class="section-header">
+      <div class="section-title">Derniers posts</div>
+      <div class="section-sub">Journal de voyage</div>
+    </div>
+    <div class="journal-grid">
       <!-- ✏️ COPIE CE BLOC POUR AJOUTER UN POST -->
       <div class="journal-card">
-        <div class="journal-img" style="background:linear-gradient(135deg,#b5d4f4,#042c53);">✈️</div>
+        <div class="journal-img">
+          <div class="journal-img-placeholder" style="background:#E8F2EC;"></div>
+        </div>
         <div class="journal-body">
           <div class="journal-meta">
-            <span class="journal-day">6 juillet</span>
+            <span class="journal-tag">7 juillet</span>
             <span class="journal-author">Noa</span>
           </div>
-          <div class="journal-title">Atterrissage à Montréal !</div>
+          <div class="journal-title">Atterrissage à Montréal</div>
           <div class="journal-preview">On a posé les pieds au Canada pour la première fois. Le feeling est incroyable, tout le monde est à fond...</div>
         </div>
       </div>
       <!-- FIN DU BLOC -->
-
     </div>
   </div>
 </div>
@@ -129,24 +287,26 @@
 <!-- JOURNAL -->
 <div id="journal" class="page">
   <div class="section">
-    <div class="section-title">Journal de voyage</div>
-    <div class="section-sub">Chaque pif raconte sa journée, ses ressentis, ses coups de cœur</div>
+    <div class="section-header">
+      <div class="section-title">Journal de voyage</div>
+      <div class="section-sub">Récits du quotidien</div>
+    </div>
     <div class="journal-grid">
-
       <!-- ✏️ COPIE CE BLOC POUR AJOUTER UN POST -->
       <div class="journal-card">
-        <div class="journal-img" style="background:linear-gradient(135deg,#b5d4f4,#042c53);">✈️</div>
+        <div class="journal-img">
+          <div class="journal-img-placeholder" style="background:#E8F2EC;"></div>
+        </div>
         <div class="journal-body">
           <div class="journal-meta">
-            <span class="journal-day">6 juillet</span>
+            <span class="journal-tag">7 juillet</span>
             <span class="journal-author">Noa</span>
           </div>
-          <div class="journal-title">Atterrissage à Montréal !</div>
+          <div class="journal-title">Atterrissage à Montréal</div>
           <div class="journal-preview">On a posé les pieds au Canada pour la première fois. Le feeling est incroyable, tout le monde est à fond...</div>
         </div>
       </div>
       <!-- FIN DU BLOC -->
-
     </div>
   </div>
 </div>
@@ -154,37 +314,45 @@
 <!-- ITINERAIRE -->
 <div id="itineraire" class="page">
   <div class="section">
-    <div class="section-title">Notre itinéraire</div>
-    <div class="section-sub">Le programme ville par ville</div>
-    <div class="itinerary">
+    <div class="section-header">
+      <div class="section-title">Itinéraire</div>
+      <div class="section-sub">7 – 21 juillet 2026</div>
+    </div>
+    <div class="itin-list">
+
       <div class="itin-item">
-        <div class="itin-left"><div class="itin-day-label">J1–J6</div><div class="itin-dot"></div><div class="itin-line"></div></div>
-        <div>
-          <div class="itin-city">🏙️ Montréal</div>
-          <div class="itin-desc">Arrivée, Vieux-Montréal, Mont-Royal, Plateau, sortie vélos, Shabbat au Chabad, musées, street food</div>
+        <div class="itin-left">
+          <div class="itin-dates">7 – 14<br>juillet</div>
+          <div class="itin-nuits">7 nuits</div>
+        </div>
+        <div class="itin-right">
+          <div class="itin-city">Montréal</div>
+          <img class="itin-photo" src="https://images.unsplash.com/photo-1519181245277-cffeb31da948?w=1200" alt="Montréal" onerror="this.style.display='none'" />
         </div>
       </div>
+
       <div class="itin-item">
-        <div class="itin-left"><div class="itin-day-label">J7–J9</div><div class="itin-dot"></div><div class="itin-line"></div></div>
-        <div>
-          <div class="itin-city">🌊 Chutes du Niagara</div>
-          <div class="itin-desc">Route vers Niagara, bateau Maid of the Mist, parc, côté canadien vs américain</div>
+        <div class="itin-left">
+          <div class="itin-dates">14 – 16<br>juillet</div>
+          <div class="itin-nuits">2 nuits</div>
+        </div>
+        <div class="itin-right">
+          <div class="itin-city">Chutes du Niagara</div>
+          <img class="itin-photo" src="https://images.unsplash.com/photo-1489447068241-b3490214e879?w=1200" alt="Niagara" onerror="this.style.display='none'" />
         </div>
       </div>
+
       <div class="itin-item">
-        <div class="itin-left"><div class="itin-day-label">J10–J13</div><div class="itin-dot"></div><div class="itin-line"></div></div>
-        <div>
-          <div class="itin-city">🏙️ Toronto</div>
-          <div class="itin-desc">CN Tower, Kensington Market, Distillery District, île de Toronto, Shabbat</div>
+        <div class="itin-left">
+          <div class="itin-dates">16 – 21<br>juillet</div>
+          <div class="itin-nuits">5 nuits</div>
+        </div>
+        <div class="itin-right">
+          <div class="itin-city">Toronto</div>
+          <img class="itin-photo" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1200" alt="Toronto" onerror="this.style.display='none'" />
         </div>
       </div>
-      <div class="itin-item">
-        <div class="itin-left"><div class="itin-day-label">J14–J17</div><div class="itin-dot"></div></div>
-        <div>
-          <div class="itin-city">🍁 Québec City</div>
-          <div class="itin-desc">Vieux-Québec, Château Frontenac, Plaines d'Abraham, Saint-Laurent, clôture du voyage</div>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
@@ -192,52 +360,109 @@
 <!-- PHOTOS -->
 <div id="photos" class="page">
   <div class="section">
-    <div class="section-title">Galerie photos</div>
-    <div class="section-sub">Les meilleurs moments en images</div>
-    <div class="photos-grid">
-
-      <!-- ✏️ POUR AJOUTER UNE PHOTO : remplace le lien href par l'URL de ta photo -->
-      <div class="photo-card" style="background:linear-gradient(135deg,#b5d4f4,#042c53);">🌃</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#9fe1cb,#085041);">🌲</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#fac775,#633806);">🌊</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#cecbf6,#26215c);">🏙️</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#c0dd97,#27500a);">🚲</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#f5c4b3,#4a1b0c);">🏰</div>
-      <!-- ✏️ EXEMPLE AVEC UNE VRAIE PHOTO :
-      <div class="photo-card"><img src="https://lien-vers-ta-photo.jpg" alt="photo" /></div>
-      -->
-
+    <div class="section-header">
+      <div class="section-title">Photos</div>
+      <div class="section-sub">Les moments du voyage</div>
     </div>
-    <p class="photos-note">Les vraies photos s'afficheront ici pendant le voyage</p>
+    <div class="photos-grid">
+      <!-- ✏️ REMPLACE LES PLACEHOLDERS PAR TES VRAIES PHOTOS :
+           <div class="photo-cell"><img src="URL_DE_TA_PHOTO" alt="description" /></div>
+      -->
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+    </div>
   </div>
 </div>
 
 <!-- EQUIPE -->
 <div id="equipe" class="page">
   <div class="section">
-    <div class="section-title">L'équipe KIGALERA</div>
-    <div class="section-sub">Les encadrants du voyage</div>
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="avatar" style="background:#e1f5ee;color:#0f6e56;">NO</div>
-        <div class="team-name">Noa</div>
-        <div class="team-role">Co-leader</div>
+    <div class="section-header">
+      <div class="section-title">L'équipe</div>
+      <div class="section-sub">Responsables et encadrants</div>
+    </div>
+
+    <div class="equipe-section">
+      <div class="equipe-role">Responsables</div>
+      <div class="equipe-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="equipe-card">
+          <div class="equipe-initiales">NO</div>
+          <div class="equipe-nom">Noa</div>
+          <div class="equipe-fonction">Responsable</div>
+        </div>
+        <div class="equipe-card">
+          <div class="equipe-initiales">AM</div>
+          <div class="equipe-nom">Ambre</div>
+          <div class="equipe-fonction">Responsable</div>
+        </div>
       </div>
-      <div class="team-card">
-        <div class="avatar" style="background:#eeedfe;color:#534ab7;">AM</div>
-        <div class="team-name">Ambre</div>
-        <div class="team-role">Co-leader</div>
+    </div>
+
+    <div class="equipe-section">
+      <div class="equipe-role">Encadrants</div>
+      <div class="equipe-grid">
+        <div class="equipe-card">
+          <div class="equipe-initiales">SH</div>
+          <div class="equipe-nom">Sherley</div>
+          <div class="equipe-fonction">Encadrante</div>
+        </div>
+        <div class="equipe-card">
+          <div class="equipe-initiales">BE</div>
+          <div class="equipe-nom">Benjamin</div>
+          <div class="equipe-fonction">Encadrant</div>
+        </div>
+        <div class="equipe-card">
+          <div class="equipe-initiales">JU</div>
+          <div class="equipe-nom">Judith</div>
+          <div class="equipe-fonction">Encadrante</div>
+        </div>
+        <div class="equipe-card">
+          <div class="equipe-initiales">SA</div>
+          <div class="equipe-nom">Samuel</div>
+          <div class="equipe-fonction">Encadrant</div>
+        </div>
       </div>
-      <div class="team-card">
-        <div class="avatar" style="background:#e6f1fb;color:#185fa5;">LI</div>
-        <div class="team-name">Lior</div>
-        <div class="team-role">Madrich</div>
-      </div>
-      <div class="team-card">
-        <div class="avatar" style="background:#faeeda;color:#854f0b;">YA</div>
-        <div class="team-name">Yaël</div>
-        <div class="team-role">Madrich</div>
-      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:1rem;">
+      <div class="section-title">Les participants</div>
+      <div class="section-sub">30 pifs</div>
+    </div>
+    <div class="participants-grid">
+      <div class="participant-item">Nathan Abehassera</div>
+      <div class="participant-item">Marc Abitbol</div>
+      <div class="participant-item">Leny Abitbol</div>
+      <div class="participant-item">Eva Bachmann</div>
+      <div class="participant-item">Samuel Berkman</div>
+      <div class="participant-item">Noam Bisraor</div>
+      <div class="participant-item">Ethel Brodowicz</div>
+      <div class="participant-item">Anaïs Chemla</div>
+      <div class="participant-item">Emmy Cohen</div>
+      <div class="participant-item">Nathan Darsa</div>
+      <div class="participant-item">Romy El Kobbi</div>
+      <div class="participant-item">Solal Gnhassia</div>
+      <div class="participant-item">Nathan Hachtuel</div>
+      <div class="participant-item">Salomé Hadjeje</div>
+      <div class="participant-item">Gabriel Journo</div>
+      <div class="participant-item">Asher Korenbajzer</div>
+      <div class="participant-item">Andy Kouby</div>
+      <div class="participant-item">Elsa Lelouche</div>
+      <div class="participant-item">Jessica Mouyal</div>
+      <div class="participant-item">Clara Revcolevschi</div>
+      <div class="participant-item">Arié Riveline</div>
+      <div class="participant-item">Eytan Salama</div>
+      <div class="participant-item">Anouk Sarfaty</div>
+      <div class="participant-item">Samuel Seroussi</div>
+      <div class="participant-item">Elinor Singer</div>
+      <div class="participant-item">Roni Sion</div>
+      <div class="participant-item">Ariel Soffer</div>
+      <div class="participant-item">Noah Studnia</div>
+      <div class="participant-item">Charlie Uzan</div>
+      <div class="participant-item">Romy Zeitoun</div>
     </div>
   </div>
 </div>
@@ -248,6 +473,7 @@
     document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     if (el) el.classList.add('active');
+    window.scrollTo(0, 0);
   }
 </script>
 </body>
