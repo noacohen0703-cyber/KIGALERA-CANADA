@@ -8,14 +8,12 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9f9f7; color: #1a1a1a; }
 
-    /* NAV */
     nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-    .nav-logo { font-size: 17px; font-weight: 600; color: #1a1a1a; }
+    .nav-logo { font-size: 17px; font-weight: 600; }
     .nav-links { display: flex; gap: 1.5rem; }
-    .nav-link { font-size: 14px; color: #666; cursor: pointer; padding: 4px 0; border-bottom: 2px solid transparent; transition: all 0.2s; text-decoration: none; }
+    .nav-link { font-size: 14px; color: #666; cursor: pointer; padding: 4px 0; border-bottom: 2px solid transparent; transition: all 0.2s; }
     .nav-link:hover, .nav-link.active { color: #0f6e56; border-bottom-color: #0f6e56; }
 
-    /* HERO */
     .hero { background: linear-gradient(135deg, #042c53 0%, #0f6e56 100%); padding: 5rem 2rem; text-align: center; color: white; }
     .hero-tag { display: inline-block; background: rgba(255,255,255,0.15); font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 1rem; letter-spacing: 1px; }
     .hero h1 { font-size: 42px; font-weight: 700; margin-bottom: 0.5rem; }
@@ -25,22 +23,18 @@
     .btn-white { background: white; color: #0f6e56; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
     .btn-outline { background: transparent; color: white; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid rgba(255,255,255,0.5); }
 
-    /* SECTIONS */
     .section { padding: 2.5rem 2rem; max-width: 960px; margin: 0 auto; }
     .section-title { font-size: 22px; font-weight: 600; margin-bottom: 0.4rem; }
     .section-sub { font-size: 14px; color: #888; margin-bottom: 1.5rem; }
 
-    /* STATS */
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 2.5rem; }
     .stat-card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 1.2rem; text-align: center; }
     .stat-num { font-size: 28px; font-weight: 700; color: #0f6e56; }
     .stat-label { font-size: 12px; color: #888; margin-top: 3px; }
 
-    /* PAGE */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* JOURNAL */
     .journal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
     .journal-card { background: white; border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
     .journal-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
@@ -50,10 +44,7 @@
     .journal-author { font-size: 12px; color: #999; }
     .journal-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
     .journal-preview { font-size: 13px; color: #666; line-height: 1.5; }
-    .loading { text-align: center; padding: 3rem; color: #aaa; font-size: 14px; }
-    .error { text-align: center; padding: 2rem; color: #e24b4a; font-size: 14px; background: #fff5f5; border-radius: 8px; }
 
-    /* ITINERAIRE */
     .itinerary { display: flex; flex-direction: column; }
     .itin-item { display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid #f0f0f0; }
     .itin-item:last-child { border-bottom: none; }
@@ -63,15 +54,12 @@
     .itin-line { flex: 1; width: 1px; background: #e5e5e5; margin-top: 4px; }
     .itin-city { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
     .itin-desc { font-size: 13px; color: #666; line-height: 1.6; }
-    .itin-photos { display: flex; gap: 6px; margin-top: 10px; }
-    .photo-thumb { width: 56px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 
-    /* PHOTOS */
     .photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .photo-card { border-radius: 10px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .photo-card { border-radius: 10px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 32px; overflow: hidden; }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; }
     .photos-note { font-size: 13px; color: #aaa; text-align: center; margin-top: 1rem; }
 
-    /* EQUIPE */
     .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
     .team-card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 1.2rem; text-align: center; }
     .avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; margin: 0 auto 10px; }
@@ -81,8 +69,7 @@
     @media (max-width: 600px) {
       .hero h1 { font-size: 28px; }
       nav { padding: 1rem; }
-      .nav-links { gap: 1rem; }
-      .stats-row { grid-template-columns: repeat(3, 1fr); }
+      .nav-links { gap: 0.8rem; }
     }
   </style>
 </head>
@@ -91,11 +78,11 @@
 <nav>
   <span class="nav-logo">🍁 KIGALERA CANADA</span>
   <div class="nav-links">
-    <a class="nav-link active" onclick="showPage('home', this)">Accueil</a>
-    <a class="nav-link" onclick="showPage('journal', this)">Journal</a>
-    <a class="nav-link" onclick="showPage('itineraire', this)">Itinéraire</a>
-    <a class="nav-link" onclick="showPage('photos', this)">Photos</a>
-    <a class="nav-link" onclick="showPage('equipe', this)">Équipe</a>
+    <span class="nav-link active" onclick="showPage('home', this)">Accueil</span>
+    <span class="nav-link" onclick="showPage('journal', this)">Journal</span>
+    <span class="nav-link" onclick="showPage('itineraire', this)">Itinéraire</span>
+    <span class="nav-link" onclick="showPage('photos', this)">Photos</span>
+    <span class="nav-link" onclick="showPage('equipe', this)">Équipe</span>
   </div>
 </nav>
 
@@ -119,8 +106,22 @@
     </div>
     <div class="section-title">Derniers posts</div>
     <div class="section-sub">Les pifs racontent leur aventure</div>
-    <div id="home-posts" class="journal-grid">
-      <div class="loading">Chargement des posts...</div>
+    <div class="journal-grid">
+
+      <!-- ✏️ COPIE CE BLOC POUR AJOUTER UN POST -->
+      <div class="journal-card">
+        <div class="journal-img" style="background:linear-gradient(135deg,#b5d4f4,#042c53);">✈️</div>
+        <div class="journal-body">
+          <div class="journal-meta">
+            <span class="journal-day">6 juillet</span>
+            <span class="journal-author">Noa</span>
+          </div>
+          <div class="journal-title">Atterrissage à Montréal !</div>
+          <div class="journal-preview">On a posé les pieds au Canada pour la première fois. Le feeling est incroyable, tout le monde est à fond...</div>
+        </div>
+      </div>
+      <!-- FIN DU BLOC -->
+
     </div>
   </div>
 </div>
@@ -130,8 +131,22 @@
   <div class="section">
     <div class="section-title">Journal de voyage</div>
     <div class="section-sub">Chaque pif raconte sa journée, ses ressentis, ses coups de cœur</div>
-    <div id="journal-posts" class="journal-grid">
-      <div class="loading">Chargement du journal...</div>
+    <div class="journal-grid">
+
+      <!-- ✏️ COPIE CE BLOC POUR AJOUTER UN POST -->
+      <div class="journal-card">
+        <div class="journal-img" style="background:linear-gradient(135deg,#b5d4f4,#042c53);">✈️</div>
+        <div class="journal-body">
+          <div class="journal-meta">
+            <span class="journal-day">6 juillet</span>
+            <span class="journal-author">Noa</span>
+          </div>
+          <div class="journal-title">Atterrissage à Montréal !</div>
+          <div class="journal-preview">On a posé les pieds au Canada pour la première fois. Le feeling est incroyable, tout le monde est à fond...</div>
+        </div>
+      </div>
+      <!-- FIN DU BLOC -->
+
     </div>
   </div>
 </div>
@@ -147,11 +162,6 @@
         <div>
           <div class="itin-city">🏙️ Montréal</div>
           <div class="itin-desc">Arrivée, Vieux-Montréal, Mont-Royal, Plateau, sortie vélos, Shabbat au Chabad, musées, street food</div>
-          <div class="itin-photos">
-            <div class="photo-thumb" style="background:#e6f1fb;">🏙️</div>
-            <div class="photo-thumb" style="background:#e1f5ee;">🌲</div>
-            <div class="photo-thumb" style="background:#faeeda;">🚲</div>
-          </div>
         </div>
       </div>
       <div class="itin-item">
@@ -159,10 +169,6 @@
         <div>
           <div class="itin-city">🌊 Chutes du Niagara</div>
           <div class="itin-desc">Route vers Niagara, bateau Maid of the Mist, parc, côté canadien vs américain</div>
-          <div class="itin-photos">
-            <div class="photo-thumb" style="background:#faeeda;">🌊</div>
-            <div class="photo-thumb" style="background:#e6f1fb;">🚢</div>
-          </div>
         </div>
       </div>
       <div class="itin-item">
@@ -170,10 +176,6 @@
         <div>
           <div class="itin-city">🏙️ Toronto</div>
           <div class="itin-desc">CN Tower, Kensington Market, Distillery District, île de Toronto, Shabbat</div>
-          <div class="itin-photos">
-            <div class="photo-thumb" style="background:#eeedfe;">🏙️</div>
-            <div class="photo-thumb" style="background:#eaf3de;">🏝️</div>
-          </div>
         </div>
       </div>
       <div class="itin-item">
@@ -181,10 +183,6 @@
         <div>
           <div class="itin-city">🍁 Québec City</div>
           <div class="itin-desc">Vieux-Québec, Château Frontenac, Plaines d'Abraham, Saint-Laurent, clôture du voyage</div>
-          <div class="itin-photos">
-            <div class="photo-thumb" style="background:#faece7;">🏰</div>
-            <div class="photo-thumb" style="background:#e1f5ee;">🍁</div>
-          </div>
         </div>
       </div>
     </div>
@@ -197,15 +195,18 @@
     <div class="section-title">Galerie photos</div>
     <div class="section-sub">Les meilleurs moments en images</div>
     <div class="photos-grid">
+
+      <!-- ✏️ POUR AJOUTER UNE PHOTO : remplace le lien href par l'URL de ta photo -->
       <div class="photo-card" style="background:linear-gradient(135deg,#b5d4f4,#042c53);">🌃</div>
       <div class="photo-card" style="background:linear-gradient(135deg,#9fe1cb,#085041);">🌲</div>
       <div class="photo-card" style="background:linear-gradient(135deg,#fac775,#633806);">🌊</div>
       <div class="photo-card" style="background:linear-gradient(135deg,#cecbf6,#26215c);">🏙️</div>
       <div class="photo-card" style="background:linear-gradient(135deg,#c0dd97,#27500a);">🚲</div>
       <div class="photo-card" style="background:linear-gradient(135deg,#f5c4b3,#4a1b0c);">🏰</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#9fe1cb,#0f6e56);">🕍</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#fac775,#412402);">🍁</div>
-      <div class="photo-card" style="background:linear-gradient(135deg,#b5d4f4,#0c447c);">🚢</div>
+      <!-- ✏️ EXEMPLE AVEC UNE VRAIE PHOTO :
+      <div class="photo-card"><img src="https://lien-vers-ta-photo.jpg" alt="photo" /></div>
+      -->
+
     </div>
     <p class="photos-note">Les vraies photos s'afficheront ici pendant le voyage</p>
   </div>
@@ -242,65 +243,12 @@
 </div>
 
 <script>
-  const NOTION_TOKEN = 'REMPLACE_PAR_TON_TOKEN';
-  const DATABASE_ID = 'REMPLACE_PAR_TON_DATABASE_ID';
-
-  const bgColors = [
-    'linear-gradient(135deg,#b5d4f4,#042c53)',
-    'linear-gradient(135deg,#9fe1cb,#085041)',
-    'linear-gradient(135deg,#fac775,#633806)',
-    'linear-gradient(135deg,#cecbf6,#26215c)',
-    'linear-gradient(135deg,#c0dd97,#27500a)',
-    'linear-gradient(135deg,#f5c4b3,#4a1b0c)',
-  ];
-  const emojis = ['✈️','🌲','🌊','🏙️','🚲','🍁','🕍','🏰','🚢','🌃'];
-
-  function formatDate(dateStr) {
-    if (!dateStr) return '';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
-  }
-
-  function renderCards(posts, containerId, limit) {
-    const container = document.getElementById(containerId);
-    if (!posts.length) { container.innerHTML = '<div class="loading">Aucun post pour l\'instant</div>'; return; }
-    const items = limit ? posts.slice(0, limit) : posts;
-    container.innerHTML = items.map((post, i) => `
-      <div class="journal-card">
-        <div class="journal-img" style="background:${bgColors[i % bgColors.length]}">${emojis[i % emojis.length]}</div>
-        <div class="journal-body">
-          <div class="journal-meta">
-            <span class="journal-day">${formatDate(post.date)}</span>
-            <span class="journal-author">${post.auteur}</span>
-          </div>
-          <div class="journal-title">${post.titre}</div>
-          <div class="journal-preview">${post.contenu}</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  async function loadPosts() {
-    try {
-      const res = await fetch('/.netlify/functions/get-posts');
-      if (!res.ok) throw new Error('Erreur réseau');
-      const posts = await res.json();
-      renderCards(posts, 'home-posts', 3);
-      renderCards(posts, 'journal-posts', null);
-    } catch (e) {
-      document.getElementById('home-posts').innerHTML = '<div class="error">Impossible de charger les posts.</div>';
-      document.getElementById('journal-posts').innerHTML = '<div class="error">Impossible de charger le journal.</div>';
-    }
-  }
-
   function showPage(id, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     if (el) el.classList.add('active');
   }
-
-  loadPosts();
 </script>
 </body>
 </html>
