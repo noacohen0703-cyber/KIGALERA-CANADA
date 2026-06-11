@@ -17,164 +17,88 @@
       --gris-clair: #F0F0EE;
       --bordure: #E0E0DC;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--blanc);
-      color: var(--noir);
-      font-size: 15px;
-      line-height: 1.6;
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--blanc); color: var(--noir); font-size: 15px; line-height: 1.6; }
 
-    /* NAV */
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 64px;
-      background: var(--blanc);
-      border-bottom: 1px solid var(--bordure);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--noir);
-    }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--blanc); border-bottom: 1px solid var(--bordure); position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: 0.05em; color: var(--noir); }
     .nav-links { display: flex; gap: 2rem; }
-    .nav-link {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      color: var(--gris);
-      cursor: pointer;
-      text-transform: uppercase;
-      border-bottom: 1.5px solid transparent;
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .nav-link:hover, .nav-link.active {
-      color: var(--noir);
-      border-bottom-color: var(--vert);
-    }
+    .nav-link { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--gris); cursor: pointer; text-transform: uppercase; border-bottom: 1.5px solid transparent; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .nav-link:hover, .nav-link.active { color: var(--noir); border-bottom-color: var(--vert); }
 
-    /* PAGES */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* HERO */
-    .hero {
-      position: relative;
-      height: 92vh;
-      min-height: 560px;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: url('https://images.unsplash.com/photo-1519181245277-cffeb31da948?w=1200') center/cover no-repeat;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 3rem 2.5rem;
-      color: white;
-      max-width: 800px;
-    }
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 1rem;
-    }
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 800;
-      line-height: 1.0;
-      margin-bottom: 1rem;
-    }
-    .hero-meta {
-      display: flex;
-      gap: 2rem;
-      font-size: 13px;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 2rem;
-    }
-    .hero-meta span { display: flex; align-items: center; gap: 6px; }
+    .hero { position: relative; height: 92vh; min-height: 560px; overflow: hidden; display: flex; align-items: flex-end; }
+    .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600') center/cover no-repeat; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 60%, transparent 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 3rem 2.5rem; color: white; max-width: 800px; }
+    .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 1rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 1rem; }
+    .hero-meta { display: flex; gap: 2rem; font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 2rem; }
     .hero-actions { display: flex; gap: 12px; }
-    .btn-hero-primary {
-      background: white;
-      color: var(--noir);
-      padding: 11px 24px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .btn-hero-primary:hover { opacity: 0.88; }
-    .btn-hero-secondary {
-      background: transparent;
-      color: white;
-      padding: 11px 24px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      border: 1px solid rgba(255,255,255,0.5);
-      cursor: pointer;
-      transition: border-color 0.2s;
-    }
-    .btn-hero-secondary:hover { border-color: white; }
+    .btn-primary { background: white; color: var(--noir); padding: 11px 24px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; cursor: pointer; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-secondary { background: transparent; color: white; padding: 11px 24px; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; border: 1px solid rgba(255,255,255,0.5); cursor: pointer; transition: border-color 0.2s; }
+    .btn-secondary:hover { border-color: white; }
 
-    /* SECTION */
     .section { padding: 4rem 2.5rem; max-width: 1100px; margin: 0 auto; }
     .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--bordure); padding-bottom: 1.2rem; display: flex; align-items: baseline; justify-content: space-between; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
     .section-sub { font-size: 13px; color: var(--gris); }
 
-    /* STATS */
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
     .stat-card { background: var(--blanc); padding: 2rem 1.5rem; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; color: var(--vert); line-height: 1; }
     .stat-label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); margin-top: 6px; }
 
-    /* JOURNAL */
     .journal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
-    .journal-card { background: var(--blanc); overflow: hidden; transition: background 0.2s; cursor: pointer; }
-    .journal-card:hover { background: var(--gris-clair); }
-    .journal-img { height: 180px; overflow: hidden; }
-    .journal-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .journal-card:hover .journal-img img { transform: scale(1.03); }
-    .journal-img-placeholder { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
-    .journal-body { padding: 1.2rem 1.4rem 1.4rem; }
+    .journal-card { background: var(--blanc); overflow: hidden; }
+    .journal-body { padding: 1.4rem; }
     .journal-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-    .journal-tag {
-      font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
-      background: var(--vert-clair); color: var(--vert); padding: 3px 8px;
-    }
+    .journal-tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--vert-clair); color: var(--vert); padding: 3px 8px; }
     .journal-author { font-size: 12px; color: var(--gris); }
     .journal-title { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
     .journal-preview { font-size: 13px; color: var(--gris); line-height: 1.6; }
+    .journal-empty { padding: 3rem; text-align: center; font-size: 14px; color: var(--gris); background: var(--blanc); }
 
-    /* ITINERAIRE */
+    /* FORMULAIRE */
+    .form-container { background: var(--gris-clair); border: 1px solid var(--bordure); padding: 2rem; margin-bottom: 3rem; }
+    .form-title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); }
+    .form-field input, .form-field textarea {
+      background: var(--blanc);
+      border: 1px solid var(--bordure);
+      padding: 10px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--noir);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--vert); }
+    .form-field textarea { resize: vertical; min-height: 100px; }
+    .form-field-full { grid-column: 1 / -1; }
+    .btn-submit {
+      background: var(--vert);
+      color: white;
+      padding: 11px 28px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: opacity 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.88; }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-success { display: none; background: var(--vert-clair); color: var(--vert); padding: 12px 16px; font-size: 13px; font-weight: 500; margin-top: 1rem; }
+    .form-error { display: none; background: #fdf0f0; color: #c0392b; padding: 12px 16px; font-size: 13px; font-weight: 500; margin-top: 1rem; }
+
     .itin-list { display: flex; flex-direction: column; }
     .itin-item { display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid var(--bordure); }
     .itin-item:last-child { border-bottom: none; }
@@ -185,14 +109,12 @@
     .itin-city { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; }
     .itin-photo { width: 100%; height: 240px; object-fit: cover; display: block; }
 
-    /* PHOTOS */
     .photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .photo-cell { aspect-ratio: 1; overflow: hidden; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; }
     .photo-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .photo-cell:hover img { transform: scale(1.04); }
     .photo-placeholder { font-size: 13px; color: var(--gris); font-weight: 500; text-align: center; padding: 1rem; }
 
-    /* EQUIPE */
     .equipe-section { margin-bottom: 3rem; }
     .equipe-role { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--vert); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--vert-clair); }
     .equipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
@@ -201,14 +123,15 @@
     .equipe-nom { font-size: 14px; font-weight: 600; }
     .equipe-fonction { font-size: 12px; color: var(--gris); margin-top: 2px; }
 
-    /* PARTICIPANTS */
     .participants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .participant-item { background: var(--blanc); padding: 0.9rem 1rem; font-size: 13px; font-weight: 500; }
     .participant-item:hover { background: var(--gris-clair); }
 
+    .loading { padding: 2rem; text-align: center; font-size: 13px; color: var(--gris); }
+
     @media (max-width: 680px) {
       nav { padding: 0 1.2rem; }
-      .nav-links { gap: 1.2rem; }
+      .nav-links { gap: 1rem; }
       .nav-link { font-size: 11px; }
       .hero-content { padding: 2rem 1.2rem; }
       .section { padding: 2.5rem 1.2rem; }
@@ -217,6 +140,7 @@
       .itin-right { padding: 1rem 0; }
       .stats-row { grid-template-columns: 1fr; }
       .photos-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -247,39 +171,23 @@
         <span>3 villes</span>
       </div>
       <div class="hero-actions">
-        <button class="btn-hero-primary" onclick="showPage('journal', document.querySelectorAll('.nav-link')[1])">Lire le journal</button>
-        <button class="btn-hero-secondary" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itinéraire</button>
+        <button class="btn-primary" onclick="showPage('journal', document.querySelectorAll('.nav-link')[1])">Lire le journal</button>
+        <button class="btn-secondary" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itinéraire</button>
       </div>
     </div>
   </div>
-
   <div class="section">
     <div class="stats-row">
       <div class="stat-card"><div class="stat-num">36</div><div class="stat-label">Participants</div></div>
       <div class="stat-card"><div class="stat-num">15</div><div class="stat-label">Jours</div></div>
       <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Villes</div></div>
     </div>
-
     <div class="section-header">
       <div class="section-title">Derniers posts</div>
       <div class="section-sub">Journal de voyage</div>
     </div>
-    <div class="journal-grid">
-      <!-- ✏️ COPIE CE BLOC POUR AJOUTER UN POST -->
-      <div class="journal-card">
-        <div class="journal-img">
-          <div class="journal-img-placeholder" style="background:#E8F2EC;"></div>
-        </div>
-        <div class="journal-body">
-          <div class="journal-meta">
-            <span class="journal-tag">7 juillet</span>
-            <span class="journal-author">Noa</span>
-          </div>
-          <div class="journal-title">Atterrissage à Montréal</div>
-          <div class="journal-preview">On a posé les pieds au Canada pour la première fois. Le feeling est incroyable, tout le monde est à fond...</div>
-        </div>
-      </div>
-      <!-- FIN DU BLOC -->
+    <div id="home-posts" class="journal-grid">
+      <div class="loading">Chargement...</div>
     </div>
   </div>
 </div>
@@ -291,22 +199,34 @@
       <div class="section-title">Journal de voyage</div>
       <div class="section-sub">Récits du quotidien</div>
     </div>
-    <div class="journal-grid">
-      <!-- ✏️ COPIE CE BLOC POUR AJOUTER UN POST -->
-      <div class="journal-card">
-        <div class="journal-img">
-          <div class="journal-img-placeholder" style="background:#E8F2EC;"></div>
+
+    <div class="form-container">
+      <div class="form-title">Publier un post</div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Titre</label>
+          <input type="text" id="f-titre" placeholder="Le titre de ton post..." />
         </div>
-        <div class="journal-body">
-          <div class="journal-meta">
-            <span class="journal-tag">7 juillet</span>
-            <span class="journal-author">Noa</span>
-          </div>
-          <div class="journal-title">Atterrissage à Montréal</div>
-          <div class="journal-preview">On a posé les pieds au Canada pour la première fois. Le feeling est incroyable, tout le monde est à fond...</div>
+        <div class="form-field">
+          <label>Ton prénom</label>
+          <input type="text" id="f-auteur" placeholder="Noa, Ambre..." />
+        </div>
+        <div class="form-field">
+          <label>Date</label>
+          <input type="date" id="f-date" />
+        </div>
+        <div class="form-field form-field-full">
+          <label>Ton texte</label>
+          <textarea id="f-contenu" placeholder="Raconte ta journée, tes ressentis..."></textarea>
         </div>
       </div>
-      <!-- FIN DU BLOC -->
+      <button class="btn-submit" id="btn-publier" onclick="publierPost()">Publier</button>
+      <div class="form-success" id="form-success">Post publié ! Il apparaitra dans quelques secondes.</div>
+      <div class="form-error" id="form-error">Une erreur s'est produite. Réessaie.</div>
+    </div>
+
+    <div id="journal-posts" class="journal-grid">
+      <div class="loading">Chargement...</div>
     </div>
   </div>
 </div>
@@ -319,7 +239,6 @@
       <div class="section-sub">7 – 21 juillet 2026</div>
     </div>
     <div class="itin-list">
-
       <div class="itin-item">
         <div class="itin-left">
           <div class="itin-dates">7 – 14<br>juillet</div>
@@ -327,10 +246,9 @@
         </div>
         <div class="itin-right">
           <div class="itin-city">Montréal</div>
-          <img class="itin-photo" src="https://images.unsplash.com/photo-1519181245277-cffeb31da948?w=1200" alt="Montréal" onerror="this.style.display='none'" />
+          <img class="itin-photo" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200" alt="Montréal" onerror="this.style.display='none'" />
         </div>
       </div>
-
       <div class="itin-item">
         <div class="itin-left">
           <div class="itin-dates">14 – 16<br>juillet</div>
@@ -341,7 +259,6 @@
           <img class="itin-photo" src="https://images.unsplash.com/photo-1489447068241-b3490214e879?w=1200" alt="Niagara" onerror="this.style.display='none'" />
         </div>
       </div>
-
       <div class="itin-item">
         <div class="itin-left">
           <div class="itin-dates">16 – 21<br>juillet</div>
@@ -352,7 +269,6 @@
           <img class="itin-photo" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1200" alt="Toronto" onerror="this.style.display='none'" />
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -365,9 +281,6 @@
       <div class="section-sub">Les moments du voyage</div>
     </div>
     <div class="photos-grid">
-      <!-- ✏️ REMPLACE LES PLACEHOLDERS PAR TES VRAIES PHOTOS :
-           <div class="photo-cell"><img src="URL_DE_TA_PHOTO" alt="description" /></div>
-      -->
       <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
       <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
       <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
@@ -385,49 +298,22 @@
       <div class="section-title">L'équipe</div>
       <div class="section-sub">Responsables et encadrants</div>
     </div>
-
     <div class="equipe-section">
       <div class="equipe-role">Responsables</div>
       <div class="equipe-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="equipe-card">
-          <div class="equipe-initiales">NO</div>
-          <div class="equipe-nom">Noa</div>
-          <div class="equipe-fonction">Responsable</div>
-        </div>
-        <div class="equipe-card">
-          <div class="equipe-initiales">AM</div>
-          <div class="equipe-nom">Ambre</div>
-          <div class="equipe-fonction">Responsable</div>
-        </div>
+        <div class="equipe-card"><div class="equipe-initiales">NO</div><div class="equipe-nom">Noa</div><div class="equipe-fonction">Responsable</div></div>
+        <div class="equipe-card"><div class="equipe-initiales">AM</div><div class="equipe-nom">Ambre</div><div class="equipe-fonction">Responsable</div></div>
       </div>
     </div>
-
     <div class="equipe-section">
       <div class="equipe-role">Encadrants</div>
       <div class="equipe-grid">
-        <div class="equipe-card">
-          <div class="equipe-initiales">SH</div>
-          <div class="equipe-nom">Sherley</div>
-          <div class="equipe-fonction">Encadrante</div>
-        </div>
-        <div class="equipe-card">
-          <div class="equipe-initiales">BE</div>
-          <div class="equipe-nom">Benjamin</div>
-          <div class="equipe-fonction">Encadrant</div>
-        </div>
-        <div class="equipe-card">
-          <div class="equipe-initiales">JU</div>
-          <div class="equipe-nom">Judith</div>
-          <div class="equipe-fonction">Encadrante</div>
-        </div>
-        <div class="equipe-card">
-          <div class="equipe-initiales">SA</div>
-          <div class="equipe-nom">Samuel</div>
-          <div class="equipe-fonction">Encadrant</div>
-        </div>
+        <div class="equipe-card"><div class="equipe-initiales">SH</div><div class="equipe-nom">Sherley</div><div class="equipe-fonction">Encadrante</div></div>
+        <div class="equipe-card"><div class="equipe-initiales">BE</div><div class="equipe-nom">Benjamin</div><div class="equipe-fonction">Encadrant</div></div>
+        <div class="equipe-card"><div class="equipe-initiales">JU</div><div class="equipe-nom">Judith</div><div class="equipe-fonction">Encadrante</div></div>
+        <div class="equipe-card"><div class="equipe-initiales">SA</div><div class="equipe-nom">Samuel</div><div class="equipe-fonction">Encadrant</div></div>
       </div>
     </div>
-
     <div class="section-header" style="margin-top:1rem;">
       <div class="section-title">Les participants</div>
       <div class="section-sub">30 pifs</div>
@@ -474,7 +360,94 @@
     document.getElementById(id).classList.add('active');
     if (el) el.classList.add('active');
     window.scrollTo(0, 0);
+    if (id === 'journal') chargerPosts('journal-posts', null);
   }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+  }
+
+  function renderPosts(posts, containerId, limit) {
+    const container = document.getElementById(containerId);
+    if (!posts || !posts.length) {
+      container.innerHTML = '<div class="journal-empty">Aucun post pour l\'instant. Le journal commence bientôt !</div>';
+      return;
+    }
+    const items = limit ? posts.slice(0, limit) : posts;
+    container.innerHTML = items.map(post => `
+      <div class="journal-card">
+        <div class="journal-body">
+          <div class="journal-meta">
+            <span class="journal-tag">${formatDate(post.date)}</span>
+            <span class="journal-author">${post.auteur}</span>
+          </div>
+          <div class="journal-title">${post.titre}</div>
+          <div class="journal-preview">${post.contenu}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  async function chargerPosts(containerId, limit) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '<div class="loading">Chargement...</div>';
+    try {
+      const res = await fetch('/.netlify/functions/get-posts');
+      const posts = await res.json();
+      renderPosts(posts, containerId, limit);
+    } catch (e) {
+      container.innerHTML = '<div class="journal-empty">Impossible de charger les posts.</div>';
+    }
+  }
+
+  async function publierPost() {
+    const titre = document.getElementById('f-titre').value.trim();
+    const auteur = document.getElementById('f-auteur').value.trim();
+    const date = document.getElementById('f-date').value;
+    const contenu = document.getElementById('f-contenu').value.trim();
+
+    if (!titre || !auteur || !contenu) {
+      document.getElementById('form-error').style.display = 'block';
+      document.getElementById('form-error').textContent = 'Remplis au moins le titre, ton prénom et le texte.';
+      return;
+    }
+
+    const btn = document.getElementById('btn-publier');
+    btn.disabled = true;
+    btn.textContent = 'Publication...';
+    document.getElementById('form-success').style.display = 'none';
+    document.getElementById('form-error').style.display = 'none';
+
+    try {
+      const res = await fetch('/.netlify/functions/add-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ titre, auteur, date, contenu }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('form-success').style.display = 'block';
+        document.getElementById('f-titre').value = '';
+        document.getElementById('f-auteur').value = '';
+        document.getElementById('f-date').value = '';
+        document.getElementById('f-contenu').value = '';
+        setTimeout(() => chargerPosts('journal-posts', null), 1500);
+      } else {
+        throw new Error();
+      }
+    } catch (e) {
+      document.getElementById('form-error').style.display = 'block';
+      document.getElementById('form-error').textContent = 'Une erreur s\'est produite. Réessaie.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Publier';
+    }
+  }
+
+  chargerPosts('home-posts', 3);
 </script>
 </body>
 </html>
