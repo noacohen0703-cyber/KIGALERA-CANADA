@@ -17,6 +17,14 @@ exports.handler = async function () {
 
     const data = await res.json();
 
+    if (!data.results) {
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ debug: data }),
+      };
+    }
+
     const posts = data.results.map((page) => {
       const props = page.properties;
       return {
@@ -24,6 +32,7 @@ exports.handler = async function () {
         auteur: props.Auteur?.rich_text?.[0]?.plain_text || '',
         date: props.Date?.date?.start || '',
         contenu: props.Contenu?.rich_text?.[0]?.plain_text || '',
+        photo: props.Photo?.files?.[0]?.file?.url || props.Photo?.files?.[0]?.external?.url || '',
       };
     });
 
