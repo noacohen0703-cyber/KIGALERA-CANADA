@@ -1,40 +1,22 @@
 exports.handler = async function () {
-  const TOKEN = process.env.NOTION_TOKEN;
-  const DB_ID = process.env.NOTION_DATABASE_ID;
+  const SHEET_ID = '1sv-RfAlgtw1FaiI5hMBosJ3OzHOA2mXW06gwZfw_9UU';
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
   try {
-    const res = await fetch(`https://api.notion.com/v1/databases/${DB_ID}/query`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${TOKEN}`,
-        'Notion-Version': '2022-06-28',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sorts: [{ property: 'Date', direction: 'descending' }],
-      }),
-    });
+    const res = await fetch(url);
+    const text = await res.text();
+    const json = JSON.parse(text.substring(47).slice(0, -2));
 
-    const data = await res.json();
-
-    if (!data.results) {
-      return {
-        statusCode: 200,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ debug: data }),
-      };
-    }
-
-    const posts = data.results.map((page) => {
-      const props = page.properties;
-      return {
-        titre: props.Nom?.title?.[0]?.plain_text || 'Sans titre',
-        auteur: props.Auteur?.rich_text?.[0]?.plain_text || '',
-        date: props.Date?.date?.start || '',
-        contenu: props.Contenu?.rich_text?.[0]?.plain_text || '',
-        photo: props.Photo?.files?.[0]?.file?.url || props.Photo?.files?.[0]?.external?.url || '',
-      };
-    });
+    const rows = json.table.rows.slice(1);
+    const posts = rows
+      .filter(row => row.c[0]?.v)
+      .map(row => ({
+        titre: row.c[0]?.v || '',
+        auteur: row.c[1]?.v || '',
+        date: row.c[2]?.v || '',
+        contenu: row.c[3]?.v || '',
+        photo: row.c[4]?.v || '',
+      }));
 
     return {
       statusCode: 200,
