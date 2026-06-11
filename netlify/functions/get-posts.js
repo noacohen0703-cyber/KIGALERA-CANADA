@@ -1,22 +1,26 @@
 exports.handler = async function () {
-  const SHEET_ID = '1sv-RfAlgtw1FaiI5hMBosJ3OzHOA2mXW06gwZfw_9UU';
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+  const TOKEN = process.env.AIRTABLE_TOKEN;
+  const BASE_ID = 'appjhI65p9SqdeC2L';
+  const TABLE_ID = 'tblvv7dIzHXSqr46E';
 
   try {
-    const res = await fetch(url);
-    const text = await res.text();
-    const json = JSON.parse(text.substring(47).slice(0, -2));
+    const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}?sort[0][field]=Date&sort[0][direction]=desc`, {
+      headers: {
+        'Authorization': `Bearer ${TOKEN}`,
+      },
+    });
+    const data = await res.json();
 
-    const rows = json.table.rows.slice(1);
-    const posts = rows
-      .filter(row => row.c[0]?.v)
-      .map(row => ({
-        titre: row.c[0]?.v || '',
-        auteur: row.c[1]?.v || '',
-        date: row.c[2]?.v || '',
-        contenu: row.c[3]?.v || '',
-        photo: row.c[4]?.v || '',
-      }));
+    if (!data.records) {
+      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
+    }
+
+    const posts = data.records.map(r => ({
+      titre: r.fields.Titre || '',
+      auteur: r.fields.Auteur || '',
+      date: r.fields.Date || '',
+      contenu: r.fields.Contenu || '',
+    }));
 
     return {
       statusCode: 200,
@@ -24,9 +28,6 @@ exports.handler = async function () {
       body: JSON.stringify(posts),
     };
   } catch (err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };
