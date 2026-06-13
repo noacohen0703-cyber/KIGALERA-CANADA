@@ -18,6 +18,9 @@ exports.handler = async function () {
         auteur: r.fields.Auteur || '',
         date: r.fields.Date || '',
         contenu: r.fields.Contenu || '',
+        photo: (r.fields.Attachments && r.fields.Attachments[0])
+          ? (r.fields.Attachments[0].thumbnails?.large?.url || r.fields.Attachments[0].url)
+          : null,
       }));
     return {
       statusCode: 200,
