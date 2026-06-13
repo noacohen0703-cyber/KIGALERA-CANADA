@@ -8,11 +8,21 @@ exports.handler = async function () {
       { headers: { 'Authorization': `Bearer ${TOKEN}` } }
     );
     const data = await res.json();
-    // Return raw data for debugging
+    if (!data.records) {
+      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
+    }
+    const posts = data.records
+      .filter(r => r.fields.Name || r.fields.Contenu)
+      .map(r => ({
+        titre: r.fields.Name || '',
+        auteur: r.fields.Auteur || '',
+        date: r.fields.Date || '',
+        contenu: r.fields.Contenu || '',
+      }));
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(posts),
     };
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
