@@ -8,21 +8,11 @@ exports.handler = async function () {
       { headers: { 'Authorization': `Bearer ${TOKEN}` } }
     );
     const data = await res.json();
-    if (!data.records) {
-      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
-    }
-    const posts = data.records
-      .filter(r => r.fields.Name || r.fields.Contenu) // ignore les lignes vides
-      .map(r => ({
-        titre: r.fields.Name || '',       // ← "Name" et non "Titre"
-        auteur: r.fields.Auteur || '',
-        date: r.fields.Date || '',
-        contenu: r.fields.Contenu || '',
-      }));
+    // Return raw data for debugging
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(posts),
+      body: JSON.stringify(data),
     };
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
