@@ -8,9 +8,7 @@ exports.handler = async function () {
       { headers: { 'Authorization': `Bearer ${TOKEN}` } }
     );
     const data = await res.json();
-    if (!data.records) {
-      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
-    }
+    if (!data.records) return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
     const posts = data.records
       .filter(r => r.fields.Name || r.fields.Contenu)
       .map(r => ({
@@ -18,15 +16,9 @@ exports.handler = async function () {
         auteur: r.fields.Auteur || '',
         date: r.fields.Date || '',
         contenu: r.fields.Contenu || '',
-        photo: (r.fields.Attachments && r.fields.Attachments[0])
-          ? (r.fields.Attachments[0].thumbnails?.large?.url || r.fields.Attachments[0].url)
-          : null,
+        photo: r.fields.Photo || null,
       }));
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(posts),
-    };
+    return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(posts) };
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
