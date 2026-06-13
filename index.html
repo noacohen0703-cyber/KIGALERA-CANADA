@@ -20,16 +20,13 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--blanc); color: var(--noir); font-size: 15px; line-height: 1.6; }
-
     nav { display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--blanc); border-bottom: 1px solid var(--bordure); position: sticky; top: 0; z-index: 100; }
     .nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: 0.05em; color: var(--noir); }
     .nav-links { display: flex; gap: 2rem; }
     .nav-link { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--gris); cursor: pointer; text-transform: uppercase; border-bottom: 1.5px solid transparent; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
     .nav-link:hover, .nav-link.active { color: var(--noir); border-bottom-color: var(--vert); }
-
     .page { display: none; }
     .page.active { display: block; }
-
     .hero { position: relative; height: 92vh; min-height: 560px; overflow: hidden; display: flex; align-items: flex-end; }
     .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1519178614-68673b201f36?w=1600') center/cover no-repeat; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 60%, transparent 100%); }
@@ -42,17 +39,14 @@
     .btn-primary:hover { opacity: 0.88; }
     .btn-secondary { background: transparent; color: white; padding: 11px 24px; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; border: 1px solid rgba(255,255,255,0.5); cursor: pointer; transition: border-color 0.2s; }
     .btn-secondary:hover { border-color: white; }
-
     .section { padding: 4rem 2.5rem; max-width: 1100px; margin: 0 auto; }
     .section-header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--bordure); padding-bottom: 1.2rem; display: flex; align-items: baseline; justify-content: space-between; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
     .section-sub { font-size: 13px; color: var(--gris); }
-
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
     .stat-card { background: var(--blanc); padding: 2rem 1.5rem; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; color: var(--vert); line-height: 1; }
     .stat-label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); margin-top: 6px; }
-
     .journal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .journal-card { background: var(--blanc); overflow: hidden; }
     .journal-photo { width: 100%; height: 200px; object-fit: cover; display: block; }
@@ -63,51 +57,22 @@
     .journal-title { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
     .journal-preview { font-size: 13px; color: var(--gris); line-height: 1.6; }
     .journal-empty { padding: 3rem; text-align: center; font-size: 14px; color: var(--gris); background: var(--blanc); }
-
-    /* FORMULAIRE */
     .form-container { background: var(--gris-clair); border: 1px solid var(--bordure); padding: 2rem; margin-bottom: 3rem; }
     .form-title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
     .form-field { display: flex; flex-direction: column; gap: 6px; }
     .form-field label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); }
-    .form-field input, .form-field textarea {
-      background: var(--blanc);
-      border: 1px solid var(--bordure);
-      padding: 10px 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      color: var(--noir);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .form-field input[type="file"] {
-      padding: 8px 12px;
-      border-style: dashed;
-      cursor: pointer;
-      color: var(--gris);
-      font-size: 13px;
-    }
+    .form-field input, .form-field textarea { background: var(--blanc); border: 1px solid var(--bordure); padding: 10px 12px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--noir); outline: none; transition: border-color 0.2s; }
+    .form-field input[type="file"] { padding: 8px 12px; border-style: dashed; cursor: pointer; color: var(--gris); font-size: 13px; }
     .form-field input:focus, .form-field textarea:focus { border-color: var(--vert); }
     .form-field textarea { resize: vertical; min-height: 100px; }
     .form-field-full { grid-column: 1 / -1; }
     .photo-preview { display: none; width: 100%; max-height: 180px; object-fit: contain; margin-top: 8px; border: 1px solid var(--bordure); background: var(--blanc); }
-    .btn-submit {
-      background: var(--vert);
-      color: white;
-      padding: 11px 28px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      border: none;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: opacity 0.2s;
-    }
+    .btn-submit { background: var(--vert); color: white; padding: 11px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; cursor: pointer; margin-top: 1rem; transition: opacity 0.2s; }
     .btn-submit:hover { opacity: 0.88; }
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
     .form-success { display: none; background: var(--vert-clair); color: var(--vert); padding: 12px 16px; font-size: 13px; font-weight: 500; margin-top: 1rem; }
     .form-error { display: none; background: #fdf0f0; color: #c0392b; padding: 12px 16px; font-size: 13px; font-weight: 500; margin-top: 1rem; }
-
     .itin-list { display: flex; flex-direction: column; }
     .itin-item { display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid var(--bordure); }
     .itin-item:last-child { border-bottom: none; }
@@ -117,13 +82,11 @@
     .itin-right { padding: 2rem 0 2rem 2rem; }
     .itin-city { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; }
     .itin-photo { width: 100%; height: 240px; object-fit: cover; display: block; }
-
     .photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .photo-cell { aspect-ratio: 1; overflow: hidden; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; }
     .photo-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .photo-cell:hover img { transform: scale(1.04); }
     .photo-placeholder { font-size: 13px; color: var(--gris); font-weight: 500; text-align: center; padding: 1rem; }
-
     .equipe-section { margin-bottom: 3rem; }
     .equipe-role { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--vert); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--vert-clair); }
     .equipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
@@ -131,13 +94,10 @@
     .equipe-initiales { width: 44px; height: 44px; background: var(--vert-clair); color: var(--vert); font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
     .equipe-nom { font-size: 14px; font-weight: 600; }
     .equipe-fonction { font-size: 12px; color: var(--gris); margin-top: 2px; }
-
     .participants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .participant-item { background: var(--blanc); padding: 0.9rem 1rem; font-size: 13px; font-weight: 500; }
     .participant-item:hover { background: var(--gris-clair); }
-
     .loading { padding: 2rem; text-align: center; font-size: 13px; color: var(--gris); }
-
     @media (max-width: 680px) {
       nav { padding: 0 1.2rem; }
       .nav-links { gap: 1rem; }
@@ -154,7 +114,6 @@
   </style>
 </head>
 <body>
-
 <nav>
   <div class="nav-logo">KIGALERA CANADA</div>
   <div class="nav-links">
@@ -165,8 +124,6 @@
     <span class="nav-link" onclick="showPage('equipe', this)">Équipe</span>
   </div>
 </nav>
-
-<!-- ACCUEIL -->
 <div id="home" class="page active">
   <div class="hero">
     <div class="hero-bg"></div>
@@ -200,15 +157,12 @@
     </div>
   </div>
 </div>
-
-<!-- JOURNAL -->
 <div id="journal" class="page">
   <div class="section">
     <div class="section-header">
       <div class="section-title">Journal de voyage</div>
       <div class="section-sub">Récits du quotidien</div>
     </div>
-
     <div class="form-container">
       <div class="form-title">Publier un post</div>
       <div class="form-grid">
@@ -238,14 +192,11 @@
       <div class="form-success" id="form-success">Post publié ! Il apparaitra dans quelques secondes.</div>
       <div class="form-error" id="form-error">Une erreur s'est produite. Réessaie.</div>
     </div>
-
     <div id="journal-posts" class="journal-grid">
       <div class="loading">Chargement...</div>
     </div>
   </div>
 </div>
-
-<!-- ITINERAIRE -->
 <div id="itineraire" class="page">
   <div class="section">
     <div class="section-header">
@@ -286,8 +237,6 @@
     </div>
   </div>
 </div>
-
-<!-- PHOTOS -->
 <div id="photos" class="page">
   <div class="section">
     <div class="section-header">
@@ -299,8 +248,6 @@
     </div>
   </div>
 </div>
-
-<!-- EQUIPE -->
 <div id="equipe" class="page">
   <div class="section">
     <div class="section-header">
@@ -361,7 +308,6 @@
     </div>
   </div>
 </div>
-
 <script>
   function showPage(id, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -446,18 +392,28 @@
   }
 
   async function fileToBase64(file) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const img = new Image();
       const url = URL.createObjectURL(file);
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Impossible de lire l\'image')); };
       img.onload = () => {
         URL.revokeObjectURL(url);
-        const canvas = document.createElement('canvas');
-        let w = img.width, h = img.height;
-        const MAX = 600;
-        if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL('image/jpeg', 0.6).split(',')[1]);
+        try {
+          const canvas = document.createElement('canvas');
+          let w = img.naturalWidth || img.width;
+          let h = img.naturalHeight || img.height;
+          const MAX = 600;
+          if (w > h) { if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; } }
+          else { if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; } }
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) { reject(new Error('Canvas non supporté')); return; }
+          ctx.drawImage(img, 0, 0, w, h);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
+          const base64 = dataUrl.split(',')[1];
+          if (!base64 || base64.length < 50) { reject(new Error('Encodage échoué')); return; }
+          resolve(base64);
+        } catch(e) { reject(e); }
       };
       img.src = url;
     });
@@ -506,11 +462,11 @@
         document.getElementById('photo-preview').style.display = 'none';
         setTimeout(() => chargerPosts('journal-posts', null), 1500);
       } else {
-        throw new Error();
+        throw new Error(data.error || 'Erreur inconnue');
       }
     } catch (e) {
       document.getElementById('form-error').style.display = 'block';
-      document.getElementById('form-error').textContent = "Une erreur s'est produite. Réessaie.";
+      document.getElementById('form-error').textContent = 'Erreur : ' + e.message;
     } finally {
       btn.disabled = false;
       btn.textContent = 'Publier';
