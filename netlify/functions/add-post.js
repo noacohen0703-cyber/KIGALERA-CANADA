@@ -15,16 +15,16 @@ exports.handler = async function (event) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        fields: { Titre: titre, Auteur: auteur, Contenu: contenu, Date: date },
+        fields: { Name: titre, Auteur: auteur, Contenu: contenu, Date: date },
       }),
     });
 
     const data = await res.json();
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ success: true, id: data.id }),
-    };
+    if (data.id) {
+      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ success: true, id: data.id }) };
+    } else {
+      throw new Error(JSON.stringify(data));
+    }
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
