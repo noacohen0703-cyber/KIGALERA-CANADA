@@ -18,6 +18,7 @@ exports.handler = async function () {
         return new Date(b.createdTime) - new Date(a.createdTime);
       })
       .map(r => ({
+        id: r.id,
         titre: r.fields.Name || '',
         auteur: r.fields.Auteur || '',
         date: r.fields.Date || '',
