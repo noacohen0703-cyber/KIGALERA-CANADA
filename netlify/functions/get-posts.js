@@ -11,6 +11,12 @@ exports.handler = async function () {
     if (!data.records) return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
     const posts = data.records
       .filter(r => r.fields.Name || r.fields.Contenu)
+      .sort((a, b) => {
+        const dateA = a.fields.Date || '';
+        const dateB = b.fields.Date || '';
+        if (dateB !== dateA) return dateB.localeCompare(dateA);
+        return new Date(b.createdTime) - new Date(a.createdTime);
+      })
       .map(r => ({
         titre: r.fields.Name || '',
         auteur: r.fields.Auteur || '',
