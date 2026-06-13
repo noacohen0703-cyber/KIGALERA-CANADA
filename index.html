@@ -37,7 +37,7 @@
     .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 1rem; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 1rem; }
     .hero-meta { display: flex; gap: 2rem; font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 2rem; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: 12px; }
     .btn-primary { background: white; color: var(--noir); padding: 11px 24px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; cursor: pointer; transition: opacity 0.2s; }
     .btn-primary:hover { opacity: 0.88; }
     .btn-secondary { background: transparent; color: white; padding: 11px 24px; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; border: 1px solid rgba(255,255,255,0.5); cursor: pointer; transition: border-color 0.2s; }
@@ -64,45 +64,18 @@
     .journal-preview { font-size: 13px; color: var(--gris); line-height: 1.6; }
     .journal-empty { padding: 3rem; text-align: center; font-size: 14px; color: var(--gris); background: var(--blanc); }
 
-    /* FORMULAIRE */
     .form-container { background: var(--gris-clair); border: 1px solid var(--bordure); padding: 2rem; margin-bottom: 3rem; }
     .form-title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
     .form-field { display: flex; flex-direction: column; gap: 6px; }
     .form-field label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); }
-    .form-field input, .form-field textarea {
-      background: var(--blanc);
-      border: 1px solid var(--bordure);
-      padding: 10px 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      color: var(--noir);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .form-field input[type="file"] {
-      padding: 8px 12px;
-      border-style: dashed;
-      cursor: pointer;
-      color: var(--gris);
-      font-size: 13px;
-    }
+    .form-field input, .form-field textarea { background: var(--blanc); border: 1px solid var(--bordure); padding: 10px 12px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--noir); outline: none; transition: border-color 0.2s; }
+    .form-field input[type="file"] { padding: 8px 12px; border-style: dashed; cursor: pointer; color: var(--gris); font-size: 13px; }
     .form-field input:focus, .form-field textarea:focus { border-color: var(--vert); }
     .form-field textarea { resize: vertical; min-height: 100px; }
     .form-field-full { grid-column: 1 / -1; }
     .photo-preview { display: none; width: 100%; max-height: 180px; object-fit: contain; margin-top: 8px; border: 1px solid var(--bordure); background: var(--blanc); }
-    .btn-submit {
-      background: var(--vert);
-      color: white;
-      padding: 11px 28px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      border: none;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: opacity 0.2s;
-    }
+    .btn-submit { background: var(--vert); color: white; padding: 11px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; cursor: pointer; margin-top: 1rem; transition: opacity 0.2s; }
     .btn-submit:hover { opacity: 0.88; }
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
     .form-success { display: none; background: var(--vert-clair); color: var(--vert); padding: 12px 16px; font-size: 13px; font-weight: 500; margin-top: 1rem; }
@@ -138,6 +111,24 @@
 
     .loading { padding: 2rem; text-align: center; font-size: 13px; color: var(--gris); }
 
+    .comment-toggle { width: 100%; background: none; border: none; border-top: 1px solid var(--bordure); padding: 10px 1.4rem; font-size: 12px; color: var(--gris); cursor: pointer; text-align: left; font-family: 'Inter', sans-serif; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+    .comment-toggle:hover { color: var(--vert); }
+    .comment-body { display: none; padding: 1rem 1.4rem; border-top: 1px solid var(--bordure); background: var(--gris-clair); }
+    .comment-body.open { display: block; }
+    .comment-list { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 8px; }
+    .comment-item { background: var(--blanc); padding: 10px 12px; border-left: 2px solid var(--vert-clair); }
+    .comment-meta { font-size: 11px; font-weight: 600; color: var(--vert); margin-bottom: 3px; }
+    .comment-texte { font-size: 13px; color: var(--noir); line-height: 1.5; }
+    .comment-empty { font-size: 12px; color: var(--gris); margin-bottom: 1rem; }
+    .comment-form { display: flex; gap: 8px; flex-wrap: wrap; }
+    .comment-form input { flex: 1; min-width: 100px; background: var(--blanc); border: 1px solid var(--bordure); padding: 8px 10px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; }
+    .comment-form input:focus { border-color: var(--vert); }
+    .comment-form textarea { width: 100%; background: var(--blanc); border: 1px solid var(--bordure); padding: 8px 10px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; resize: none; min-height: 60px; }
+    .comment-form textarea:focus { border-color: var(--vert); }
+    .comment-submit { background: var(--vert); color: white; border: none; padding: 8px 16px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.2s; white-space: nowrap; }
+    .comment-submit:hover { opacity: 0.85; }
+    .comment-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
     @media (max-width: 680px) {
       nav { padding: 0 1.2rem; }
       .nav-links { gap: 1rem; }
@@ -160,19 +151,18 @@
   <div class="nav-links">
     <span class="nav-link active" onclick="showPage('home', this)">Accueil</span>
     <span class="nav-link" onclick="showPage('journal', this)">Journal</span>
-    <span class="nav-link" onclick="showPage('itineraire', this)">Itinéraire</span>
+    <span class="nav-link" onclick="showPage('itineraire', this)">Itin&#233;raire</span>
     <span class="nav-link" onclick="showPage('photos', this)">Photos</span>
-    <span class="nav-link" onclick="showPage('equipe', this)">Équipe</span>
+    <span class="nav-link" onclick="showPage('equipe', this)">&#201;quipe</span>
   </div>
 </nav>
 
-<!-- ACCUEIL -->
 <div id="home" class="page active">
   <div class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">EEIF &mdash; Été 2026</div>
+      <div class="hero-eyebrow">EEIF &mdash; &#201;t&#233; 2026</div>
       <h1>KIGALERA<br>CANADA</h1>
       <div class="hero-meta">
         <span>7 &ndash; 21 juillet 2026</span>
@@ -181,7 +171,7 @@
       </div>
       <div class="hero-actions">
         <button class="btn-primary" onclick="showPage('journal', document.querySelectorAll('.nav-link')[1])">Lire le journal</button>
-        <button class="btn-secondary" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itinéraire</button>
+        <button class="btn-secondary" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itin&#233;raire</button>
         <button class="btn-secondary" id="btn-copier" onclick="copierLien()">Copier le lien</button>
       </div>
     </div>
@@ -202,17 +192,15 @@
   </div>
 </div>
 
-<!-- JOURNAL -->
 <div id="journal" class="page">
   <div class="section">
     <div class="section-header">
       <div class="section-title">Journal de voyage</div>
       <div style="display:flex;align-items:center;gap:12px;">
-        <div class="section-sub">Récits du quotidien</div>
-        <button onclick="chargerPosts('journal-posts', null)" style="font-size:12px;padding:5px 12px;border:1px solid var(--bordure);background:var(--blanc);color:var(--gris);cursor:pointer;font-family:'Inter',sans-serif;transition:color 0.2s;" onmouseover="this.style.color='var(--noir)'" onmouseout="this.style.color='var(--gris)'">↺ Actualiser</button>
+        <div class="section-sub">R&#233;cits du quotidien</div>
+        <button onclick="chargerPosts('journal-posts', null)" style="font-size:12px;padding:5px 12px;border:1px solid var(--bordure);background:var(--blanc);color:var(--gris);cursor:pointer;font-family:'Inter',sans-serif;transition:color 0.2s;" onmouseover="this.style.color='var(--noir)'" onmouseout="this.style.color='var(--gris)'">&#8634; Actualiser</button>
       </div>
     </div>
-
     <div class="form-container">
       <div class="form-title">Publier un post</div>
       <div class="form-grid">
@@ -221,7 +209,7 @@
           <input type="text" id="f-titre" placeholder="Le titre de ton post..." />
         </div>
         <div class="form-field">
-          <label>Ton prénom</label>
+          <label>Ton pr&#233;nom</label>
           <input type="text" id="f-auteur" placeholder="Noa, Ambre..." />
         </div>
         <div class="form-field">
@@ -231,67 +219,46 @@
         <div class="form-field">
           <label>Photo (optionnel)</label>
           <input type="file" id="f-photo" accept="image/*" onchange="previewPhoto(this)" />
-          <img id="photo-preview" class="photo-preview" alt="Aperçu" />
+          <img id="photo-preview" class="photo-preview" alt="Aper&#231;u" />
         </div>
         <div class="form-field form-field-full">
           <label>Ton texte</label>
-          <textarea id="f-contenu" placeholder="Raconte ta journée, tes ressentis..."></textarea>
+          <textarea id="f-contenu" placeholder="Raconte ta journ&#233;e, tes ressentis..."></textarea>
         </div>
       </div>
       <button class="btn-submit" id="btn-publier" onclick="publierPost()">Publier</button>
-      <div class="form-success" id="form-success">Post publié ! Il apparaitra dans quelques secondes.</div>
-      <div class="form-error" id="form-error">Une erreur s'est produite. Réessaie.</div>
+      <div class="form-success" id="form-success">Post publi&#233; ! Il apparaitra dans quelques secondes.</div>
+      <div class="form-error" id="form-error">Une erreur s'est produite. R&#233;essaie.</div>
     </div>
-
     <div id="journal-posts" class="journal-grid">
       <div class="loading">Chargement...</div>
     </div>
   </div>
 </div>
 
-<!-- ITINERAIRE -->
 <div id="itineraire" class="page">
   <div class="section">
     <div class="section-header">
-      <div class="section-title">Itinéraire</div>
-      <div class="section-sub">7 – 21 juillet 2026</div>
+      <div class="section-title">Itin&#233;raire</div>
+      <div class="section-sub">7 &ndash; 21 juillet 2026</div>
     </div>
     <div class="itin-list">
       <div class="itin-item">
-        <div class="itin-left">
-          <div class="itin-dates">7 – 14<br>juillet</div>
-          <div class="itin-nuits">7 nuits</div>
-        </div>
-        <div class="itin-right">
-          <div class="itin-city">Montréal</div>
-          <img class="itin-photo" src="https://images.unsplash.com/photo-1519178614-68673b201f36?w=1200" alt="Montréal" onerror="this.style.display='none'" />
-        </div>
+        <div class="itin-left"><div class="itin-dates">7 &ndash; 14<br>juillet</div><div class="itin-nuits">7 nuits</div></div>
+        <div class="itin-right"><div class="itin-city">Montr&#233;al</div><img class="itin-photo" src="https://images.unsplash.com/photo-1519178614-68673b201f36?w=1200" alt="Montr&#233;al" onerror="this.style.display='none'" /></div>
       </div>
       <div class="itin-item">
-        <div class="itin-left">
-          <div class="itin-dates">14 – 16<br>juillet</div>
-          <div class="itin-nuits">2 nuits</div>
-        </div>
-        <div class="itin-right">
-          <div class="itin-city">Chutes du Niagara</div>
-          <img class="itin-photo" src="https://images.unsplash.com/photo-1489447068241-b3490214e879?w=1200" alt="Niagara" onerror="this.style.display='none'" />
-        </div>
+        <div class="itin-left"><div class="itin-dates">14 &ndash; 16<br>juillet</div><div class="itin-nuits">2 nuits</div></div>
+        <div class="itin-right"><div class="itin-city">Chutes du Niagara</div><img class="itin-photo" src="https://images.unsplash.com/photo-1489447068241-b3490214e879?w=1200" alt="Niagara" onerror="this.style.display='none'" /></div>
       </div>
       <div class="itin-item">
-        <div class="itin-left">
-          <div class="itin-dates">16 – 21<br>juillet</div>
-          <div class="itin-nuits">5 nuits</div>
-        </div>
-        <div class="itin-right">
-          <div class="itin-city">Toronto</div>
-          <img class="itin-photo" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1200" alt="Toronto" onerror="this.style.display='none'" />
-        </div>
+        <div class="itin-left"><div class="itin-dates">16 &ndash; 21<br>juillet</div><div class="itin-nuits">5 nuits</div></div>
+        <div class="itin-right"><div class="itin-city">Toronto</div><img class="itin-photo" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1200" alt="Toronto" onerror="this.style.display='none'" /></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PHOTOS -->
 <div id="photos" class="page">
   <div class="section">
     <div class="section-header">
@@ -304,11 +271,10 @@
   </div>
 </div>
 
-<!-- EQUIPE -->
 <div id="equipe" class="page">
   <div class="section">
     <div class="section-header">
-      <div class="section-title">L'équipe</div>
+      <div class="section-title">L'&#233;quipe</div>
       <div class="section-sub">Responsables et encadrants</div>
     </div>
     <div class="equipe-section">
@@ -332,36 +298,21 @@
       <div class="section-sub">30 pifs</div>
     </div>
     <div class="participants-grid">
-      <div class="participant-item">Nathan Abehassera</div>
-      <div class="participant-item">Marc Abitbol</div>
-      <div class="participant-item">Leny Abitbol</div>
-      <div class="participant-item">Eva Bachmann</div>
-      <div class="participant-item">Samuel Berkman</div>
-      <div class="participant-item">Noam Bisraor</div>
-      <div class="participant-item">Ethel Brodowicz</div>
-      <div class="participant-item">Anaïs Chemla</div>
-      <div class="participant-item">Emmy Cohen</div>
-      <div class="participant-item">Nathan Darsa</div>
-      <div class="participant-item">Romy El Kobbi</div>
-      <div class="participant-item">Solal Gnhassia</div>
-      <div class="participant-item">Nathan Hachtuel</div>
-      <div class="participant-item">Salomé Hadjeje</div>
-      <div class="participant-item">Gabriel Journo</div>
-      <div class="participant-item">Asher Korenbajzer</div>
-      <div class="participant-item">Andy Kouby</div>
-      <div class="participant-item">Elsa Lelouche</div>
-      <div class="participant-item">Jessica Mouyal</div>
-      <div class="participant-item">Clara Revcolevschi</div>
-      <div class="participant-item">Arié Riveline</div>
-      <div class="participant-item">Eytan Salama</div>
-      <div class="participant-item">Anouk Sarfaty</div>
-      <div class="participant-item">Samuel Seroussi</div>
-      <div class="participant-item">Elinor Singer</div>
-      <div class="participant-item">Roni Sion</div>
-      <div class="participant-item">Ariel Soffer</div>
-      <div class="participant-item">Noah Studnia</div>
-      <div class="participant-item">Charlie Uzan</div>
-      <div class="participant-item">Romy Zeitoun</div>
+      <div class="participant-item">Nathan Abehassera</div><div class="participant-item">Marc Abitbol</div>
+      <div class="participant-item">Leny Abitbol</div><div class="participant-item">Eva Bachmann</div>
+      <div class="participant-item">Samuel Berkman</div><div class="participant-item">Noam Bisraor</div>
+      <div class="participant-item">Ethel Brodowicz</div><div class="participant-item">Ana&#239;s Chemla</div>
+      <div class="participant-item">Emmy Cohen</div><div class="participant-item">Nathan Darsa</div>
+      <div class="participant-item">Romy El Kobbi</div><div class="participant-item">Solal Gnhassia</div>
+      <div class="participant-item">Nathan Hachtuel</div><div class="participant-item">Salom&#233; Hadjeje</div>
+      <div class="participant-item">Gabriel Journo</div><div class="participant-item">Asher Korenbajzer</div>
+      <div class="participant-item">Andy Kouby</div><div class="participant-item">Elsa Lelouche</div>
+      <div class="participant-item">Jessica Mouyal</div><div class="participant-item">Clara Revcolevschi</div>
+      <div class="participant-item">Ari&#233; Riveline</div><div class="participant-item">Eytan Salama</div>
+      <div class="participant-item">Anouk Sarfaty</div><div class="participant-item">Samuel Seroussi</div>
+      <div class="participant-item">Elinor Singer</div><div class="participant-item">Roni Sion</div>
+      <div class="participant-item">Ariel Soffer</div><div class="participant-item">Noah Studnia</div>
+      <div class="participant-item">Charlie Uzan</div><div class="participant-item">Romy Zeitoun</div>
     </div>
   </div>
 </div>
@@ -386,26 +337,89 @@
     return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
   }
 
+  let allComments = [];
+
   function renderPosts(posts, containerId, limit) {
     const container = document.getElementById(containerId);
     if (!posts || !posts.length) {
-      container.innerHTML = '<div class="journal-empty">Aucun post pour l\'instant. Le journal commence bientôt !</div>';
+      container.innerHTML = '<div class="journal-empty">Aucun post pour l\'instant.</div>';
       return;
     }
     const items = limit ? posts.slice(0, limit) : posts;
-    container.innerHTML = items.map(post => `
-      <div class="journal-card">
-        ${post.photo ? `<img class="journal-photo" src="${post.photo}" alt="${post.titre}" loading="lazy" />` : ''}
-        <div class="journal-body">
-          <div class="journal-meta">
-            <span class="journal-tag">${formatDate(post.date)}</span>
-            <span class="journal-author">${post.auteur}</span>
-          </div>
-          <div class="journal-title">${post.titre}</div>
-          <div class="journal-preview">${post.contenu}</div>
-        </div>
-      </div>
-    `).join('');
+    const showComments = containerId === 'journal-posts';
+    container.innerHTML = items.map(post => {
+      const n = countComments(post.id);
+      return '<div class="journal-card" id="post-' + post.id + '">' +
+        (post.photo ? '<img class="journal-photo" src="' + post.photo + '" alt="' + post.titre + '" loading="lazy" />' : '') +
+        '<div class="journal-body">' +
+          '<div class="journal-meta"><span class="journal-tag">' + formatDate(post.date) + '</span><span class="journal-author">' + post.auteur + '</span></div>' +
+          '<div class="journal-title">' + post.titre + '</div>' +
+          '<div class="journal-preview">' + post.contenu + '</div>' +
+        '</div>' +
+        (showComments ?
+          '<button class="comment-toggle" onclick="toggleComments(\'' + post.id + '\')">' +
+            '<span>&#128172;</span><span id="comment-count-' + post.id + '">' + n + ' commentaire' + (n !== 1 ? 's' : '') + '</span>' +
+          '</button>' +
+          '<div class="comment-body" id="comment-body-' + post.id + '">' +
+            '<div class="comment-list" id="comment-list-' + post.id + '">' + renderCommentList(post.id) + '</div>' +
+            '<div class="comment-form">' +
+              '<input type="text" id="c-auteur-' + post.id + '" placeholder="Ton pr&#233;nom" maxlength="40" />' +
+              '<textarea id="c-texte-' + post.id + '" placeholder="Ton commentaire..."></textarea>' +
+              '<button class="comment-submit" id="c-btn-' + post.id + '" onclick="envoyerCommentaire(\'' + post.id + '\')">Envoyer</button>' +
+            '</div>' +
+          '</div>'
+        : '') +
+        '</div>';
+    }).join('');
+  }
+
+  function countComments(postId) {
+    return allComments.filter(c => c.postId === postId).length;
+  }
+
+  function renderCommentList(postId) {
+    const comments = allComments.filter(c => c.postId === postId);
+    if (!comments.length) return '<div class="comment-empty">Sois le premier à commenter !</div>';
+    return comments.map(c =>
+      '<div class="comment-item"><div class="comment-meta">' + c.auteur + '</div><div class="comment-texte">' + c.texte + '</div></div>'
+    ).join('');
+  }
+
+  function toggleComments(postId) {
+    document.getElementById('comment-body-' + postId).classList.toggle('open');
+  }
+
+  async function chargerCommentaires() {
+    try {
+      const res = await fetch('/.netlify/functions/get-comments');
+      allComments = await res.json();
+    } catch(e) { allComments = []; }
+  }
+
+  async function envoyerCommentaire(postId) {
+    const auteurEl = document.getElementById('c-auteur-' + postId);
+    const texteEl = document.getElementById('c-texte-' + postId);
+    const btn = document.getElementById('c-btn-' + postId);
+    const auteur = auteurEl.value.trim();
+    const texte = texteEl.value.trim();
+    if (!auteur || !texte) return;
+    btn.disabled = true; btn.textContent = '...';
+    try {
+      const res = await fetch('/.netlify/functions/add-comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId, auteur, texte }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        allComments.push({ id: data.id, postId, auteur, texte, createdTime: data.createdTime });
+        document.getElementById('comment-list-' + postId).innerHTML = renderCommentList(postId);
+        const n = countComments(postId);
+        document.getElementById('comment-count-' + postId).textContent = n + ' commentaire' + (n !== 1 ? 's' : '');
+        auteurEl.value = ''; texteEl.value = '';
+      }
+    } catch(e) {}
+    btn.disabled = false; btn.textContent = 'Envoyer';
   }
 
   async function chargerPosts(containerId, limit) {
@@ -413,10 +427,12 @@
     if (!container) return;
     container.innerHTML = '<div class="loading">Chargement...</div>';
     try {
-      const res = await fetch('/.netlify/functions/get-posts');
+      const fetches = [fetch('/.netlify/functions/get-posts')];
+      if (containerId === 'journal-posts') fetches.push(chargerCommentaires());
+      const [res] = await Promise.all(fetches);
       const posts = await res.json();
       renderPosts(posts, containerId, limit);
-    } catch (e) {
+    } catch(e) {
       container.innerHTML = '<div class="journal-empty">Impossible de charger les posts.</div>';
     }
   }
@@ -429,14 +445,12 @@
       const posts = await res.json();
       const withPhotos = posts.filter(p => p.photo);
       if (!withPhotos.length) {
-        grid.innerHTML = '<div class="photo-cell" style="aspect-ratio:auto;grid-column:1/-1"><div class="photo-placeholder">Les photos apparaîtront ici au fil du voyage !</div></div>';
+        grid.innerHTML = '<div class="photo-cell" style="aspect-ratio:auto;grid-column:1/-1"><div class="photo-placeholder">Les photos appara&#238;tront ici au fil du voyage !</div></div>';
         return;
       }
-      grid.innerHTML = withPhotos.map(p => `
-        <div class="photo-cell">
-          <img src="${p.photo}" alt="${p.titre}" loading="lazy" title="${p.titre} — ${p.auteur}" />
-        </div>
-      `).join('');
+      grid.innerHTML = withPhotos.map(p =>
+        '<div class="photo-cell"><img src="' + p.photo + '" alt="' + p.titre + '" loading="lazy" title="' + p.titre + ' - ' + p.auteur + '" /></div>'
+      ).join('');
     } catch(e) {
       grid.innerHTML = '<div class="photo-cell" style="aspect-ratio:auto;grid-column:1/-1"><div class="photo-placeholder">Impossible de charger les photos.</div></div>';
     }
@@ -444,12 +458,8 @@
 
   function previewPhoto(input) {
     const preview = document.getElementById('photo-preview');
-    if (input.files && input.files[0]) {
-      preview.src = URL.createObjectURL(input.files[0]);
-      preview.style.display = 'block';
-    } else {
-      preview.style.display = 'none';
-    }
+    if (input.files && input.files[0]) { preview.src = URL.createObjectURL(input.files[0]); preview.style.display = 'block'; }
+    else { preview.style.display = 'none'; }
   }
 
   async function fileToBase64(file) {
@@ -468,11 +478,11 @@
           else { if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; } }
           canvas.width = w; canvas.height = h;
           const ctx = canvas.getContext('2d');
-          if (!ctx) { reject(new Error('Canvas non supporté')); return; }
+          if (!ctx) { reject(new Error('Canvas non support&#233;')); return; }
           ctx.drawImage(img, 0, 0, w, h);
           const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
           const base64 = dataUrl.split(',')[1];
-          if (!base64 || base64.length < 50) { reject(new Error('Encodage échoué')); return; }
+          if (!base64 || base64.length < 50) { reject(new Error('Encodage &#233;chou&#233;')); return; }
           resolve(base64);
         } catch(e) { reject(e); }
       };
@@ -483,7 +493,7 @@
   function copierLien() {
     navigator.clipboard.writeText(window.location.href).then(() => {
       const btn = document.getElementById('btn-copier');
-      btn.textContent = 'Lien copié !';
+      btn.textContent = 'Lien copi&#233; !';
       setTimeout(() => { btn.textContent = 'Copier le lien'; }, 2000);
     });
   }
@@ -495,26 +505,22 @@
     const contenu = document.getElementById('f-contenu').value.trim();
     const photoInput = document.getElementById('f-photo');
     const photoFile = photoInput.files[0] || null;
-
     if (!titre || !auteur || !contenu) {
       document.getElementById('form-error').style.display = 'block';
-      document.getElementById('form-error').textContent = 'Remplis au moins le titre, ton prénom et le texte.';
+      document.getElementById('form-error').textContent = 'Remplis au moins le titre, ton pr&#233;nom et le texte.';
       return;
     }
-
     const btn = document.getElementById('btn-publier');
     btn.disabled = true;
     btn.textContent = photoFile ? 'Upload en cours...' : 'Publication...';
     document.getElementById('form-success').style.display = 'none';
     document.getElementById('form-error').style.display = 'none';
-
     try {
       let photoBase64 = null, photoName = null, photoType = 'image/jpeg';
       if (photoFile) {
         photoBase64 = await fileToBase64(photoFile);
         photoName = photoFile.name.replace(/\.[^.]+$/, '') + '.jpg';
       }
-
       const res = await fetch('/.netlify/functions/add-post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -530,12 +536,10 @@
         photoInput.value = '';
         document.getElementById('photo-preview').style.display = 'none';
         setTimeout(() => chargerPosts('journal-posts', null), 1500);
-      } else {
-        throw new Error();
-      }
-    } catch (e) {
+      } else { throw new Error(); }
+    } catch(e) {
       document.getElementById('form-error').style.display = 'block';
-      document.getElementById('form-error').textContent = 'Erreur : ' + (e.message || "réessaie");
+      document.getElementById('form-error').textContent = 'Erreur : ' + (e.message || 'r&#233;essaie');
     } finally {
       btn.disabled = false;
       btn.textContent = 'Publier';
