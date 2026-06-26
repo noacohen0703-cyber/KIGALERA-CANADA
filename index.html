@@ -516,9 +516,17 @@
     const file = input.files[0];
     if (!file) return;
     document.getElementById('photo-label-text').textContent = 'Redimensionnement...';
-    _photoBase64 = await resizeImage(file, 600, 0.55);
+    _photoBase64 = await resizeImage(file, 400, 0.4);
     const preview = document.getElementById('photo-preview');
     preview.src = _photoBase64;
+    if (_photoBase64.length > 85000) {
+    _photoBase64 = '';
+    document.getElementById('f-photo').value = '';
+    document.getElementById('photo-label-text').textContent = 'Choisir une photo...';
+    document.getElementById('form-error').style.display = 'block';
+    document.getElementById('form-error').textContent = 'Photo trop lourde. Essaie une photo plus petite.';
+    return;
+  }
     document.getElementById('photo-preview-wrap').style.display = 'block';
     document.getElementById('photo-label-text').textContent = file.name;
   }
