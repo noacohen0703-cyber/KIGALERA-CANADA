@@ -217,10 +217,10 @@
 
 <script>
   const SITE_CODE = 'kigalera26';
-  (function(){ if(localStorage.getItem('kig_unlocked')==='1') document.getElementById('lock-screen').classList.add('hidden'); })();
+  (function(){ if(localStorage.getItem('kig_v2')==='1') document.getElementById('lock-screen').classList.add('hidden'); })();
   function unlockSite(){
     const val = document.getElementById('lock-input').value.trim();
-    if(val===SITE_CODE){ localStorage.setItem('kig_unlocked','1'); document.getElementById('lock-screen').classList.add('hidden'); }
+    if(val===SITE_CODE){ localStorage.setItem('kig_v2','1'); document.getElementById('lock-screen').classList.add('hidden'); }
     else { document.getElementById('lock-error').textContent='Code incorrect. Réessaie.'; document.getElementById('lock-input').value=''; document.getElementById('lock-input').focus(); }
   }
   function showPage(id,el){
