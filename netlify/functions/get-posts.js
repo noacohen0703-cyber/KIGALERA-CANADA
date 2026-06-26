@@ -8,24 +8,23 @@ exports.handler = async function () {
       { headers: { 'Authorization': `Bearer ${TOKEN}` } }
     );
     const data = await res.json();
-    if (!data.records) return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
+    if (!data.records) {
+      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify([]) };
+    }
     const posts = data.records
       .filter(r => r.fields.Name || r.fields.Contenu)
-      .sort((a, b) => {
-        const dateA = a.fields.Date || '';
-        const dateB = b.fields.Date || '';
-        if (dateB !== dateA) return dateB.localeCompare(dateA);
-        return new Date(b.createdTime) - new Date(a.createdTime);
-      })
       .map(r => ({
-        id: r.id,
         titre: r.fields.Name || '',
         auteur: r.fields.Auteur || '',
         date: r.fields.Date || '',
         contenu: r.fields.Contenu || '',
-        photo: r.fields.Photo || null,
+        photo: r.fields.Photo || '',
       }));
-    return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(posts) };
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(posts),
+    };
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
