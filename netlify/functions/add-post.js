@@ -24,7 +24,7 @@ exports.handler = async function (event) {
     if (data.id) {
       return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ success: true, id: data.id }) };
     } else {
-      throw new Error(JSON.stringify(data));
+      return { statusCode: 500, body: JSON.stringify({ error: JSON.stringify(data) }) };
     }
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
