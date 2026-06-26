@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
       --noir: #111111;
@@ -22,6 +21,31 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--blanc); color: var(--noir); font-size: 15px; line-height: 1.6; }
 
+    /* LOCK SCREEN */
+    #lock-screen {
+      position: fixed; inset: 0; background: #111; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #lock-screen.hidden { display: none; }
+    .lock-inner { text-align: center; color: white; padding: 2rem; max-width: 360px; width: 100%; }
+    .lock-logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .lock-sub { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 2.5rem; }
+    .lock-input {
+      background: transparent; border: 1px solid rgba(255,255,255,0.25); color: white;
+      padding: 13px 20px; font-family: 'Inter', sans-serif; font-size: 15px;
+      width: 100%; text-align: center; outline: none; letter-spacing: 0.1em;
+      transition: border-color 0.2s;
+    }
+    .lock-input:focus { border-color: rgba(255,255,255,0.6); }
+    .lock-input::placeholder { color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
+    .lock-error { color: #e74c3c; font-size: 12px; margin-top: 10px; min-height: 18px; }
+    .lock-btn {
+      margin-top: 1.2rem; background: white; color: #111; border: none;
+      padding: 12px 40px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+      cursor: pointer; text-transform: uppercase; width: 100%; transition: opacity 0.2s;
+    }
+    .lock-btn:hover { opacity: 0.85; }
+
     nav { display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--blanc); border-bottom: 1px solid var(--bordure); position: sticky; top: 0; z-index: 100; }
     .nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: 0.05em; color: var(--noir); }
     .nav-links { display: flex; gap: 2rem; }
@@ -32,13 +56,13 @@
     .page.active { display: block; }
 
     .hero { position: relative; height: 92vh; min-height: 560px; overflow: hidden; display: flex; align-items: flex-end; }
-    .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1519178614-68673b201f36?w=1600') center/cover no-repeat; }
+    .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600') center/cover no-repeat; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 60%, transparent 100%); }
     .hero-content { position: relative; z-index: 2; padding: 3rem 2.5rem; color: white; max-width: 800px; }
     .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 1rem; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; margin-bottom: 1rem; }
     .hero-meta { display: flex; gap: 2rem; font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 2rem; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-actions { display: flex; gap: 12px; }
     .btn-primary { background: white; color: var(--noir); padding: 11px 24px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; cursor: pointer; transition: opacity 0.2s; }
     .btn-primary:hover { opacity: 0.88; }
     .btn-secondary { background: transparent; color: white; padding: 11px 24px; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; border: 1px solid rgba(255,255,255,0.5); cursor: pointer; transition: border-color 0.2s; }
@@ -49,26 +73,14 @@
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
     .section-sub { font-size: 13px; color: var(--gris); }
 
-    /* METEO */
-    .meteo-widget { display: none; align-items: center; gap: 16px; background: var(--blanc); border: 1px solid var(--bordure); padding: 10px 18px; font-size: 13px; margin-bottom: 1.5rem; }
-    .meteo-city { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--vert); }
-    .meteo-temp { font-weight: 600; font-size: 15px; }
-    .meteo-desc { color: var(--gris); }
-
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
     .stat-card { background: var(--blanc); padding: 2rem 1.5rem; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; color: var(--vert); line-height: 1; }
     .stat-label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); margin-top: 6px; }
 
-    /* FILTRE AUTEUR */
-    .filter-bar { display: none; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
-    .filter-btn { background: var(--blanc); border: 1px solid var(--bordure); padding: 5px 14px; font-size: 12px; font-family: 'Inter', sans-serif; cursor: pointer; color: var(--gris); transition: all 0.2s; }
-    .filter-btn:hover { color: var(--noir); border-color: var(--vert); }
-    .filter-btn.active { background: var(--vert); color: white; border-color: var(--vert); }
-
     .journal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .journal-card { background: var(--blanc); overflow: hidden; }
-    .journal-photo { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .journal-card-photo { width: 100%; height: 180px; object-fit: cover; display: block; }
     .journal-body { padding: 1.4rem; }
     .journal-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .journal-tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--vert-clair); color: var(--vert); padding: 3px 8px; }
@@ -77,50 +89,56 @@
     .journal-preview { font-size: 13px; color: var(--gris); line-height: 1.6; }
     .journal-empty { padding: 3rem; text-align: center; font-size: 14px; color: var(--gris); background: var(--blanc); }
 
-    /* REACTIONS */
-    .reaction-bar { display: flex; gap: 6px; padding: 8px 1.4rem; border-top: 1px solid var(--bordure); }
-    .reaction-btn { background: var(--blanc); border: 1px solid var(--bordure); padding: 4px 10px; font-size: 13px; cursor: pointer; border-radius: 20px; font-family: 'Inter', sans-serif; transition: all 0.15s; display: flex; align-items: center; gap: 4px; color: var(--gris); line-height: 1.4; }
-    .reaction-btn:hover { border-color: var(--vert); color: var(--noir); transform: scale(1.05); }
-    .reaction-btn.reacted { background: var(--vert-clair); border-color: var(--vert); color: var(--vert); font-weight: 600; }
-
     /* FORMULAIRE */
     .form-container { background: var(--gris-clair); border: 1px solid var(--bordure); padding: 2rem; margin-bottom: 3rem; }
     .form-title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
     .form-field { display: flex; flex-direction: column; gap: 6px; }
     .form-field label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gris); }
-    .form-field input, .form-field textarea { background: var(--blanc); border: 1px solid var(--bordure); padding: 10px 12px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--noir); outline: none; transition: border-color 0.2s; }
-    .form-field input[type="file"] { padding: 8px 12px; border-style: dashed; cursor: pointer; color: var(--gris); font-size: 13px; }
+    .form-field input, .form-field textarea {
+      background: var(--blanc);
+      border: 1px solid var(--bordure);
+      padding: 10px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--noir);
+      outline: none;
+      transition: border-color 0.2s;
+    }
     .form-field input:focus, .form-field textarea:focus { border-color: var(--vert); }
     .form-field textarea { resize: vertical; min-height: 100px; }
     .form-field-full { grid-column: 1 / -1; }
-    .photo-preview { display: none; width: 100%; max-height: 180px; object-fit: contain; margin-top: 8px; border: 1px solid var(--bordure); background: var(--blanc); }
-    .btn-submit { background: var(--vert); color: white; padding: 11px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; cursor: pointer; margin-top: 1rem; transition: opacity 0.2s; }
+    .photo-input-label {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--blanc); border: 1px solid var(--bordure);
+      padding: 10px 12px; cursor: pointer; transition: border-color 0.2s;
+      font-size: 13px; color: var(--gris);
+    }
+    .photo-input-label:hover { border-color: var(--vert); }
+    .photo-input-label input[type="file"] { display: none; }
+    #photo-preview-wrap { margin-top: 8px; display: none; position: relative; }
+    #photo-preview { max-height: 160px; max-width: 100%; object-fit: cover; display: block; }
+    #photo-remove {
+      position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); color: white;
+      border: none; cursor: pointer; font-size: 12px; padding: 3px 8px; font-weight: 600;
+    }
+    .btn-submit {
+      background: var(--vert);
+      color: white;
+      padding: 11px 28px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: opacity 0.2s;
+    }
     .btn-submit:hover { opacity: 0.88; }
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
     .form-success { display: none; background: var(--vert-clair); color: var(--vert); padding: 12px 16px; font-size: 13px; font-weight: 500; margin-top: 1rem; }
     .form-error { display: none; background: #fdf0f0; color: #c0392b; padding: 12px 16px; font-size: 13px; font-weight: 500; margin-top: 1rem; }
 
-    /* COMMENTAIRES */
-    .comment-toggle { width: 100%; background: none; border: none; border-top: 1px solid var(--bordure); padding: 10px 1.4rem; font-size: 12px; color: var(--gris); cursor: pointer; text-align: left; font-family: 'Inter', sans-serif; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
-    .comment-toggle:hover { color: var(--vert); }
-    .comment-body { display: none; padding: 1rem 1.4rem; border-top: 1px solid var(--bordure); background: var(--gris-clair); }
-    .comment-body.open { display: block; }
-    .comment-list { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 8px; }
-    .comment-item { background: var(--blanc); padding: 10px 12px; border-left: 2px solid var(--vert-clair); }
-    .comment-meta { font-size: 11px; font-weight: 600; color: var(--vert); margin-bottom: 3px; }
-    .comment-texte { font-size: 13px; color: var(--noir); line-height: 1.5; }
-    .comment-empty { font-size: 12px; color: var(--gris); margin-bottom: 1rem; }
-    .comment-form { display: flex; gap: 8px; flex-wrap: wrap; }
-    .comment-form input { flex: 1; min-width: 100px; background: var(--blanc); border: 1px solid var(--bordure); padding: 8px 10px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; }
-    .comment-form input:focus { border-color: var(--vert); }
-    .comment-form textarea { width: 100%; background: var(--blanc); border: 1px solid var(--bordure); padding: 8px 10px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; resize: none; min-height: 60px; }
-    .comment-form textarea:focus { border-color: var(--vert); }
-    .comment-submit { background: var(--vert); color: white; border: none; padding: 8px 16px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.2s; white-space: nowrap; }
-    .comment-submit:hover { opacity: 0.85; }
-    .comment-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* ITINERAIRE */
     .itin-list { display: flex; flex-direction: column; }
     .itin-item { display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid var(--bordure); }
     .itin-item:last-child { border-bottom: none; }
@@ -131,17 +149,12 @@
     .itin-city { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; }
     .itin-photo { width: 100%; height: 240px; object-fit: cover; display: block; }
 
-    /* CARTE */
-    #carte { height: 380px; width: 100%; margin-bottom: 2rem; border: 1px solid var(--bordure); }
-
-    /* PHOTOS */
     .photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .photo-cell { aspect-ratio: 1; overflow: hidden; background: var(--gris-clair); display: flex; align-items: center; justify-content: center; }
     .photo-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .photo-cell:hover img { transform: scale(1.04); }
     .photo-placeholder { font-size: 13px; color: var(--gris); font-weight: 500; text-align: center; padding: 1rem; }
 
-    /* EQUIPE */
     .equipe-section { margin-bottom: 3rem; }
     .equipe-role { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--vert); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--vert-clair); }
     .equipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); margin-bottom: 3rem; }
@@ -149,6 +162,7 @@
     .equipe-initiales { width: 44px; height: 44px; background: var(--vert-clair); color: var(--vert); font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
     .equipe-nom { font-size: 14px; font-weight: 600; }
     .equipe-fonction { font-size: 12px; color: var(--gris); margin-top: 2px; }
+
     .participants-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--bordure); border: 1px solid var(--bordure); }
     .participant-item { background: var(--blanc); padding: 0.9rem 1rem; font-size: 13px; font-weight: 500; }
     .participant-item:hover { background: var(--gris-clair); }
@@ -167,20 +181,31 @@
       .stats-row { grid-template-columns: 1fr; }
       .photos-grid { grid-template-columns: repeat(2, 1fr); }
       .form-grid { grid-template-columns: 1fr; }
-      #carte { height: 280px; }
     }
   </style>
 </head>
 <body>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-inner">
+    <div class="lock-logo">KIGALERA CANADA</div>
+    <div class="lock-sub">EEIF &mdash; Voyage privé &mdash; Été 2026</div>
+    <input class="lock-input" id="lock-input" type="password" placeholder="Code d'accès" autocomplete="off"
+      onkeydown="if(event.key==='Enter')unlockSite()" />
+    <div class="lock-error" id="lock-error"></div>
+    <button class="lock-btn" onclick="unlockSite()">Entrer</button>
+  </div>
+</div>
 
 <nav>
   <div class="nav-logo">KIGALERA CANADA</div>
   <div class="nav-links">
     <span class="nav-link active" onclick="showPage('home', this)">Accueil</span>
     <span class="nav-link" onclick="showPage('journal', this)">Journal</span>
-    <span class="nav-link" onclick="showPage('itineraire', this)">Itin&#233;raire</span>
+    <span class="nav-link" onclick="showPage('itineraire', this)">Itinéraire</span>
     <span class="nav-link" onclick="showPage('photos', this)">Photos</span>
-    <span class="nav-link" onclick="showPage('equipe', this)">&#201;quipe</span>
+    <span class="nav-link" onclick="showPage('equipe', this)">Équipe</span>
   </div>
 </nav>
 
@@ -190,22 +215,20 @@
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">EEIF &mdash; &#201;t&#233; 2026</div>
+      <div class="hero-eyebrow">EEIF &mdash; Été 2026</div>
       <h1>KIGALERA<br>CANADA</h1>
       <div class="hero-meta">
-        <span>7 &ndash; 22 juillet 2026</span>
+        <span>7 &ndash; 21 juillet 2026</span>
         <span>36 participants</span>
         <span>3 villes</span>
       </div>
       <div class="hero-actions">
         <button class="btn-primary" onclick="showPage('journal', document.querySelectorAll('.nav-link')[1])">Lire le journal</button>
-        <button class="btn-secondary" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itin&#233;raire</button>
-        <button class="btn-secondary" id="btn-copier" onclick="copierLien()">Copier le lien</button>
+        <button class="btn-secondary" onclick="showPage('itineraire', document.querySelectorAll('.nav-link')[2])">Voir l'itinéraire</button>
       </div>
     </div>
   </div>
   <div class="section">
-    <div id="meteo-widget" class="meteo-widget"></div>
     <div class="stats-row">
       <div class="stat-card"><div class="stat-num">36</div><div class="stat-label">Participants</div></div>
       <div class="stat-card"><div class="stat-num">15</div><div class="stat-label">Jours</div></div>
@@ -226,10 +249,7 @@
   <div class="section">
     <div class="section-header">
       <div class="section-title">Journal de voyage</div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div class="section-sub">R&#233;cits du quotidien</div>
-        <button onclick="chargerPosts('journal-posts', null)" style="font-size:12px;padding:5px 12px;border:1px solid var(--bordure);background:var(--blanc);color:var(--gris);cursor:pointer;font-family:'Inter',sans-serif;transition:color 0.2s;" onmouseover="this.style.color='var(--noir)'" onmouseout="this.style.color='var(--gris)'">&#8634; Actualiser</button>
-      </div>
+      <div class="section-sub">Récits du quotidien</div>
     </div>
 
     <div class="form-container">
@@ -240,33 +260,34 @@
           <input type="text" id="f-titre" placeholder="Le titre de ton post..." />
         </div>
         <div class="form-field">
-          <label>Ton pr&#233;nom</label>
+          <label>Ton prénom</label>
           <input type="text" id="f-auteur" placeholder="Noa, Ambre..." />
         </div>
         <div class="form-field">
           <label>Date</label>
           <input type="date" id="f-date" />
         </div>
-        <div class="form-field">
-          <label>Code du groupe</label>
-          <input type="password" id="f-code" placeholder="Code secret..." />
-        </div>
-        <div class="form-field">
-          <label>Photo (optionnel)</label>
-          <input type="file" id="f-photo" accept="image/*" onchange="previewPhoto(this)" />
-          <img id="photo-preview" class="photo-preview" alt="Aper&#231;u" />
-        </div>
         <div class="form-field form-field-full">
           <label>Ton texte</label>
-          <textarea id="f-contenu" placeholder="Raconte ta journ&#233;e, tes ressentis..."></textarea>
+          <textarea id="f-contenu" placeholder="Raconte ta journée, tes ressentis..."></textarea>
+        </div>
+        <div class="form-field form-field-full">
+          <label>Photo (optionnel)</label>
+          <label class="photo-input-label">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span id="photo-label-text">Choisir une photo...</span>
+            <input type="file" id="f-photo" accept="image/*" onchange="onPhotoSelected(this)" />
+          </label>
+          <div id="photo-preview-wrap">
+            <img id="photo-preview" src="" alt="Aperçu" />
+            <button id="photo-remove" onclick="removePhoto()">✕ Retirer</button>
+          </div>
         </div>
       </div>
       <button class="btn-submit" id="btn-publier" onclick="publierPost()">Publier</button>
-      <div class="form-success" id="form-success">Post publi&#233; ! Il apparaitra dans quelques secondes.</div>
-      <div class="form-error" id="form-error">Une erreur s'est produite. R&#233;essaie.</div>
+      <div class="form-success" id="form-success">Post publié ! Il apparaitra dans quelques secondes.</div>
+      <div class="form-error" id="form-error">Une erreur s'est produite. Réessaie.</div>
     </div>
-
-    <div id="author-filter" class="filter-bar"></div>
 
     <div id="journal-posts" class="journal-grid">
       <div class="loading">Chargement...</div>
@@ -278,22 +299,39 @@
 <div id="itineraire" class="page">
   <div class="section">
     <div class="section-header">
-      <div class="section-title">Itin&#233;raire</div>
-      <div class="section-sub">7 &ndash; 22 juillet 2026</div>
+      <div class="section-title">Itinéraire</div>
+      <div class="section-sub">7 – 21 juillet 2026</div>
     </div>
-    <div id="carte"></div>
     <div class="itin-list">
       <div class="itin-item">
-        <div class="itin-left"><div class="itin-dates">7 &ndash; 14<br>juillet</div><div class="itin-nuits">7 nuits</div></div>
-        <div class="itin-right"><div class="itin-city">Montr&#233;al</div><img class="itin-photo" src="https://images.unsplash.com/photo-1519178614-68673b201f36?w=1200" alt="Montr&#233;al" onerror="this.style.display='none'" /></div>
+        <div class="itin-left">
+          <div class="itin-dates">7 – 14<br>juillet</div>
+          <div class="itin-nuits">7 nuits</div>
+        </div>
+        <div class="itin-right">
+          <div class="itin-city">Montréal</div>
+          <img class="itin-photo" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200" alt="Montréal" onerror="this.style.display='none'" />
+        </div>
       </div>
       <div class="itin-item">
-        <div class="itin-left"><div class="itin-dates">14 &ndash; 16<br>juillet</div><div class="itin-nuits">2 nuits</div></div>
-        <div class="itin-right"><div class="itin-city">Chutes du Niagara</div><img class="itin-photo" src="https://images.unsplash.com/photo-1489447068241-b3490214e879?w=1200" alt="Niagara" onerror="this.style.display='none'" /></div>
+        <div class="itin-left">
+          <div class="itin-dates">14 – 16<br>juillet</div>
+          <div class="itin-nuits">2 nuits</div>
+        </div>
+        <div class="itin-right">
+          <div class="itin-city">Chutes du Niagara</div>
+          <img class="itin-photo" src="https://images.unsplash.com/photo-1489447068241-b3490214e879?w=1200" alt="Niagara" onerror="this.style.display='none'" />
+        </div>
       </div>
       <div class="itin-item">
-        <div class="itin-left"><div class="itin-dates">16 &ndash; 22<br>juillet</div><div class="itin-nuits">5 nuits</div></div>
-        <div class="itin-right"><div class="itin-city">Toronto</div><img class="itin-photo" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1200" alt="Toronto" onerror="this.style.display='none'" /></div>
+        <div class="itin-left">
+          <div class="itin-dates">16 – 21<br>juillet</div>
+          <div class="itin-nuits">5 nuits</div>
+        </div>
+        <div class="itin-right">
+          <div class="itin-city">Toronto</div>
+          <img class="itin-photo" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1200" alt="Toronto" onerror="this.style.display='none'" />
+        </div>
       </div>
     </div>
   </div>
@@ -306,8 +344,13 @@
       <div class="section-title">Photos</div>
       <div class="section-sub">Les moments du voyage</div>
     </div>
-    <div id="photos-grid" class="photos-grid">
-      <div class="photo-cell"><div class="photo-placeholder">Chargement...</div></div>
+    <div class="photos-grid">
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
+      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
     </div>
   </div>
 </div>
@@ -316,7 +359,7 @@
 <div id="equipe" class="page">
   <div class="section">
     <div class="section-header">
-      <div class="section-title">L'&#233;quipe</div>
+      <div class="section-title">L'équipe</div>
       <div class="section-sub">Responsables et encadrants</div>
     </div>
     <div class="equipe-section">
@@ -340,220 +383,78 @@
       <div class="section-sub">30 pifs</div>
     </div>
     <div class="participants-grid">
-      <div class="participant-item">Nathan Abehassera</div><div class="participant-item">Marc Abitbol</div>
-      <div class="participant-item">Leny Abitbol</div><div class="participant-item">Eva Bachmann</div>
-      <div class="participant-item">Samuel Berkman</div><div class="participant-item">Noam Bisraor</div>
-      <div class="participant-item">Ethel Brodowicz</div><div class="participant-item">Ana&#239;s Chemla</div>
-      <div class="participant-item">Emmy Cohen</div><div class="participant-item">Nathan Darsa</div>
-      <div class="participant-item">Romy El Kobbi</div><div class="participant-item">Solal Gnhassia</div>
-      <div class="participant-item">Nathan Hachtuel</div><div class="participant-item">Salom&#233; Hadjeje</div>
-      <div class="participant-item">Gabriel Journo</div><div class="participant-item">Asher Korenbajzer</div>
-      <div class="participant-item">Andy Kouby</div><div class="participant-item">Elsa Lelouche</div>
-      <div class="participant-item">Jessica Mouyal</div><div class="participant-item">Clara Revcolevschi</div>
-      <div class="participant-item">Ari&#233; Riveline</div><div class="participant-item">Eytan Salama</div>
-      <div class="participant-item">Anouk Sarfaty</div><div class="participant-item">Samuel Seroussi</div>
-      <div class="participant-item">Elinor Singer</div><div class="participant-item">Roni Sion</div>
-      <div class="participant-item">Ariel Soffer</div><div class="participant-item">Noah Studnia</div>
-      <div class="participant-item">Charlie Uzan</div><div class="participant-item">Romy Zeitoun</div>
+      <div class="participant-item">Nathan Abehassera</div>
+      <div class="participant-item">Marc Abitbol</div>
+      <div class="participant-item">Leny Abitbol</div>
+      <div class="participant-item">Eva Bachmann</div>
+      <div class="participant-item">Samuel Berkman</div>
+      <div class="participant-item">Noam Bisraor</div>
+      <div class="participant-item">Ethel Brodowicz</div>
+      <div class="participant-item">Anaïs Chemla</div>
+      <div class="participant-item">Emmy Cohen</div>
+      <div class="participant-item">Nathan Darsa</div>
+      <div class="participant-item">Romy El Kobbi</div>
+      <div class="participant-item">Solal Gnhassia</div>
+      <div class="participant-item">Nathan Hachtuel</div>
+      <div class="participant-item">Salomé Hadjeje</div>
+      <div class="participant-item">Gabriel Journo</div>
+      <div class="participant-item">Asher Korenbajzer</div>
+      <div class="participant-item">Andy Kouby</div>
+      <div class="participant-item">Elsa Lelouche</div>
+      <div class="participant-item">Jessica Mouyal</div>
+      <div class="participant-item">Clara Revcolevschi</div>
+      <div class="participant-item">Arié Riveline</div>
+      <div class="participant-item">Eytan Salama</div>
+      <div class="participant-item">Anouk Sarfaty</div>
+      <div class="participant-item">Samuel Seroussi</div>
+      <div class="participant-item">Elinor Singer</div>
+      <div class="participant-item">Roni Sion</div>
+      <div class="participant-item">Ariel Soffer</div>
+      <div class="participant-item">Noah Studnia</div>
+      <div class="participant-item">Charlie Uzan</div>
+      <div class="participant-item">Romy Zeitoun</div>
     </div>
   </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // ── GLOBALS ──────────────────────────────────────────────────────
-  let allComments = [];
-  let allReactions = [];
-  let allPosts = [];
-  let currentAuthorFilter = null;
-  let mapInitialized = false;
+  // ── LOCK SCREEN ────────────────────────────────────────────────────────────────────────────────────────
+  const SITE_CODE = 'kigalera26';
+  (function() {
+    if (localStorage.getItem('kig_unlocked') === '1') {
+      document.getElementById('lock-screen').classList.add('hidden');
+    }
+  })();
+  function unlockSite() {
+    const val = document.getElementById('lock-input').value.trim();
+    const errEl = document.getElementById('lock-error');
+    if (val === SITE_CODE) {
+      localStorage.setItem('kig_unlocked', '1');
+      document.getElementById('lock-screen').classList.add('hidden');
+    } else {
+      errEl.textContent = 'Code incorrect. Réessaie.';
+      document.getElementById('lock-input').value = '';
+      document.getElementById('lock-input').focus();
+    }
+  }
 
-  // ── NAVIGATION ───────────────────────────────────────────────────
+  // ── NAVIGATION ───────────────────────────────────────────────
   function showPage(id, el) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     if (el) el.classList.add('active');
     window.scrollTo(0, 0);
-    if (id === 'journal') {
-      chargerPosts('journal-posts', null);
-      document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
-    }
-    if (id === 'photos') chargerPhotos();
-    if (id === 'itineraire') initMap();
+    if (id === 'journal') chargerPosts('journal-posts', null);
   }
 
-  // ── UTILS ─────────────────────────────────────────────────────────
   function formatDate(dateStr) {
     if (!dateStr) return '';
     const d = new Date(dateStr);
     return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
   }
 
-  // ── METEO ─────────────────────────────────────────────────────────
-  function weatherIcon(code) {
-    if (code === 0) return '&#9728;';
-    if (code <= 3) return '&#9925;';
-    if (code <= 48) return '&#127787;';
-    if (code <= 67) return '&#127783;';
-    if (code <= 77) return '&#10052;';
-    if (code <= 82) return '&#127782;';
-    return '&#9928;';
-  }
-
-  async function chargerMeteo() {
-    const el = document.getElementById('meteo-widget');
-    if (!el) return;
-    const today = new Date();
-    const y = today.getFullYear(), m = today.getMonth(), d = today.getDate();
-    let city, lat, lon;
-    if (y === 2026 && m === 6) {
-      if (d >= 7 && d < 14)      { city = 'Montréal';       lat = 45.5017; lon = -73.5673; }
-      else if (d >= 14 && d < 16) { city = 'Niagara Falls';       lat = 43.0962; lon = -79.0377; }
-      else if (d >= 16 && d <= 22){ city = 'Toronto';             lat = 43.6532; lon = -79.3832; }
-    }
-    if (!city) { el.style.display = 'none'; return; }
-    try {
-      const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weathercode&timezone=America%2FToronto');
-      const data = await res.json();
-      const temp = Math.round(data.current.temperature_2m);
-      const icon = weatherIcon(data.current.weathercode);
-      el.style.display = 'flex';
-      el.innerHTML = '<span class="meteo-city">&#127757; ' + city + '</span><span class="meteo-temp">' + icon + ' ' + temp + '&#176;C</span>';
-    } catch(e) { el.style.display = 'none'; }
-  }
-
-  // ── CARTE (Leaflet) ───────────────────────────────────────────────
-  function initMap() {
-    if (mapInitialized) return;
-    mapInitialized = true;
-    const map = L.map('carte').setView([44.5, -76.5], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-    const cities = [
-      { name: 'Montréal', lat: 45.5017, lon: -73.5673, dates: '7–14 juillet' },
-      { name: 'Niagara Falls', lat: 43.0962, lon: -79.0377, dates: '14–16 juillet' },
-      { name: 'Toronto', lat: 43.6532, lon: -79.3832, dates: '16–22 juillet' },
-    ];
-    const icon = L.divIcon({
-      html: '<div style="width:12px;height:12px;background:#1A5C3A;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>',
-      iconSize: [12, 12], iconAnchor: [6, 6], className: ''
-    });
-    const latlngs = [];
-    cities.forEach(c => {
-      L.marker([c.lat, c.lon], { icon }).addTo(map)
-        .bindPopup('<b>' + c.name + '</b><br><span style="color:#888;font-size:12px;">' + c.dates + '</span>');
-      latlngs.push([c.lat, c.lon]);
-    });
-    L.polyline(latlngs, { color: '#1A5C3A', weight: 2, dashArray: '6,8', opacity: 0.7 }).addTo(map);
-  }
-
-  // ── REACTIONS ─────────────────────────────────────────────────────
-  function getReacted(postId) {
-    try { return JSON.parse(localStorage.getItem('kg_r') || '{}')[postId] || []; } catch(e) { return []; }
-  }
-  function setReacted(postId, type) {
-    try {
-      const d = JSON.parse(localStorage.getItem('kg_r') || '{}');
-      if (!d[postId]) d[postId] = [];
-      if (!d[postId].includes(type)) d[postId].push(type);
-      localStorage.setItem('kg_r', JSON.stringify(d));
-    } catch(e) {}
-  }
-  function countReactions(postId, type) {
-    return allReactions.filter(r => r.postId === postId && r.type === type).length;
-  }
-  async function chargerReactions() {
-    try {
-      const res = await fetch('/.netlify/functions/get-reactions');
-      allReactions = await res.json();
-    } catch(e) { allReactions = []; }
-  }
-  async function ajouterReaction(postId, type) {
-    if (getReacted(postId).includes(type)) return;
-    allReactions.push({ postId, type });
-    setReacted(postId, type);
-    const btn = document.getElementById('r-' + type + '-' + postId);
-    if (btn) {
-      btn.querySelector('span').textContent = countReactions(postId, type);
-      btn.classList.add('reacted');
-    }
-    try {
-      await fetch('/.netlify/functions/add-reaction', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ postId, type }),
-      });
-    } catch(e) {}
-  }
-
-  // ── COMMENTAIRES ──────────────────────────────────────────────────
-  async function chargerCommentaires() {
-    try {
-      const res = await fetch('/.netlify/functions/get-comments');
-      allComments = await res.json();
-    } catch(e) { allComments = []; }
-  }
-  function countComments(postId) {
-    return allComments.filter(c => c.postId === postId).length;
-  }
-  function renderCommentList(postId) {
-    const comments = allComments.filter(c => c.postId === postId);
-    if (!comments.length) return '<div class="comment-empty">Sois le premier à commenter !</div>';
-    return comments.map(c =>
-      '<div class="comment-item"><div class="comment-meta">' + c.auteur + '</div><div class="comment-texte">' + c.texte + '</div></div>'
-    ).join('');
-  }
-  function toggleComments(postId) {
-    document.getElementById('comment-body-' + postId).classList.toggle('open');
-  }
-  async function envoyerCommentaire(postId) {
-    const auteurEl = document.getElementById('c-auteur-' + postId);
-    const texteEl = document.getElementById('c-texte-' + postId);
-    const btn = document.getElementById('c-btn-' + postId);
-    const auteur = auteurEl.value.trim();
-    const texte = texteEl.value.trim();
-    if (!auteur || !texte) return;
-    btn.disabled = true; btn.textContent = '...';
-    try {
-      const res = await fetch('/.netlify/functions/add-comment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ postId, auteur, texte }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        allComments.push({ id: data.id, postId, auteur, texte, createdTime: data.createdTime });
-        document.getElementById('comment-list-' + postId).innerHTML = renderCommentList(postId);
-        const n = countComments(postId);
-        document.getElementById('comment-count-' + postId).textContent = n + ' commentaire' + (n !== 1 ? 's' : '');
-        auteurEl.value = ''; texteEl.value = '';
-      }
-    } catch(e) {}
-    btn.disabled = false; btn.textContent = 'Envoyer';
-  }
-
-  // ── FILTRE AUTEUR ─────────────────────────────────────────────────
-  function renderFilterButtons(posts) {
-    const bar = document.getElementById('author-filter');
-    if (!bar) return;
-    const authors = [...new Set(posts.map(p => p.auteur).filter(Boolean))].sort();
-    if (authors.length < 2) { bar.style.display = 'none'; return; }
-    bar.style.display = 'flex';
-    bar.innerHTML = '<button class="filter-btn active" onclick="filtrerAuteur(null)">Tous</button>' +
-      authors.map(a => '<button class="filter-btn" onclick="filtrerAuteur(\'' + a.replace(/'/g, "\\'") + '\')">' + a + '</button>').join('');
-  }
-  function filtrerAuteur(auteur) {
-    currentAuthorFilter = auteur;
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.classList.toggle('active', b.textContent === (auteur || 'Tous'));
-    });
-    const filtered = auteur ? allPosts.filter(p => p.auteur === auteur) : allPosts;
-    renderPosts(filtered, 'journal-posts', null);
-  }
-
-  // ── RENDER POSTS ──────────────────────────────────────────────────
+  // ── JOURNAL ──────────────────────────────────────────────────
   function renderPosts(posts, containerId, limit) {
     const container = document.getElementById(containerId);
     if (!posts || !posts.length) {
@@ -561,198 +462,120 @@
       return;
     }
     const items = limit ? posts.slice(0, limit) : posts;
-    const showComments = containerId === 'journal-posts';
-    container.innerHTML = items.map(post => {
-      const nC = countComments(post.id);
-      const nLike = countReactions(post.id, 'like');
-      const nHeart = countReactions(post.id, 'heart');
-      const nFire = countReactions(post.id, 'fire');
-      const reacted = getReacted(post.id);
-      return '<div class="journal-card" id="post-' + post.id + '">' +
-        (post.photo ? '<img class="journal-photo" src="' + post.photo + '" alt="' + post.titre + '" loading="lazy" />' : '') +
-        '<div class="journal-body">' +
-          '<div class="journal-meta"><span class="journal-tag">' + formatDate(post.date) + '</span><span class="journal-author">' + post.auteur + '</span></div>' +
-          '<div class="journal-title">' + post.titre + '</div>' +
-          '<div class="journal-preview">' + post.contenu + '</div>' +
-        '</div>' +
-        (showComments ?
-          '<div class="reaction-bar">' +
-            '<button class="reaction-btn' + (reacted.includes('like') ? ' reacted' : '') + '" onclick="ajouterReaction(\'' + post.id + '\',\'like\')" id="r-like-' + post.id + '">&#128077; <span>' + nLike + '</span></button>' +
-            '<button class="reaction-btn' + (reacted.includes('heart') ? ' reacted' : '') + '" onclick="ajouterReaction(\'' + post.id + '\',\'heart\')" id="r-heart-' + post.id + '">&#10084; <span>' + nHeart + '</span></button>' +
-            '<button class="reaction-btn' + (reacted.includes('fire') ? ' reacted' : '') + '" onclick="ajouterReaction(\'' + post.id + '\',\'fire\')" id="r-fire-' + post.id + '">&#128293; <span>' + nFire + '</span></button>' +
-          '</div>' +
-          '<button class="comment-toggle" onclick="toggleComments(\'' + post.id + '\')">' +
-            '<span>&#128172;</span><span id="comment-count-' + post.id + '">' + nC + ' commentaire' + (nC !== 1 ? 's' : '') + '</span>' +
-          '</button>' +
-          '<div class="comment-body" id="comment-body-' + post.id + '">' +
-            '<div class="comment-list" id="comment-list-' + post.id + '">' + renderCommentList(post.id) + '</div>' +
-            '<div class="comment-form">' +
-              '<input type="text" id="c-auteur-' + post.id + '" placeholder="Ton prénom" maxlength="40" />' +
-              '<textarea id="c-texte-' + post.id + '" placeholder="Ton commentaire..."></textarea>' +
-              '<button class="comment-submit" id="c-btn-' + post.id + '" onclick="envoyerCommentaire(\'' + post.id + '\')">Envoyer</button>' +
-            '</div>' +
-          '</div>'
-        : '') +
-        '</div>';
-    }).join('');
+    container.innerHTML = items.map(post => `
+      <div class="journal-card">
+        ${post.photo ? `<img class="journal-card-photo" src="${post.photo}" alt="" loading="lazy" />` : ''}
+        <div class="journal-body">
+          <div class="journal-meta">
+            <span class="journal-tag">${formatDate(post.date)}</span>
+            <span class="journal-author">${post.auteur}</span>
+          </div>
+          <div class="journal-title">${post.titre}</div>
+          <div class="journal-preview">${post.contenu}</div>
+        </div>
+      </div>
+    `).join('');
   }
 
-  // ── CHARGER POSTS ─────────────────────────────────────────────────
   async function chargerPosts(containerId, limit) {
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = '<div class="loading">Chargement...</div>';
     try {
-      const fetches = [fetch('/.netlify/functions/get-posts')];
-      if (containerId === 'journal-posts') {
-        fetches.push(chargerCommentaires());
-        fetches.push(chargerReactions());
-      }
-      const [res] = await Promise.all(fetches);
+      const res = await fetch('/.netlify/functions/get-posts');
       const posts = await res.json();
-      if (containerId === 'journal-posts') {
-        allPosts = posts;
-        currentAuthorFilter = null;
-        renderFilterButtons(posts);
-      }
       renderPosts(posts, containerId, limit);
-    } catch(e) {
+    } catch (e) {
       container.innerHTML = '<div class="journal-empty">Impossible de charger les posts.</div>';
     }
   }
 
-  // ── PHOTOS ────────────────────────────────────────────────────────
-  async function chargerPhotos() {
-    const grid = document.getElementById('photos-grid');
-    grid.innerHTML = '<div class="photo-cell" style="aspect-ratio:auto;grid-column:1/-1"><div class="photo-placeholder">Chargement...</div></div>';
-    try {
-      const res = await fetch('/.netlify/functions/get-posts');
-      const posts = await res.json();
-      const withPhotos = posts.filter(p => p.photo);
-      if (!withPhotos.length) {
-        grid.innerHTML = '<div class="photo-cell" style="aspect-ratio:auto;grid-column:1/-1"><div class="photo-placeholder">Les photos apparaîtront ici au fil du voyage !</div></div>';
-        return;
-      }
-      grid.innerHTML = withPhotos.map(p =>
-        '<div class="photo-cell"><img src="' + p.photo + '" alt="' + p.titre + '" loading="lazy" title="' + p.titre + ' — ' + p.auteur + '" /></div>'
-      ).join('');
-    } catch(e) {
-      grid.innerHTML = '<div class="photo-cell" style="aspect-ratio:auto;grid-column:1/-1"><div class="photo-placeholder">Impossible de charger les photos.</div></div>';
-    }
-  }
+  // ── PHOTO UPLOAD ─────────────────────────────────────────────
+  let _photoBase64 = '';
 
-  // ── PHOTO PREVIEW & UPLOAD ────────────────────────────────────────
-  function previewPhoto(input) {
-    const preview = document.getElementById('photo-preview');
-    if (input.files && input.files[0]) { preview.src = URL.createObjectURL(input.files[0]); preview.style.display = 'block'; }
-    else { preview.style.display = 'none'; }
-  }
-
-  async function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      const url = URL.createObjectURL(file);
-      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Impossible de lire l\'image')); };
-      img.onload = () => {
-        URL.revokeObjectURL(url);
-        try {
+  function resizeImage(file, maxW, quality) {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          const scale = Math.min(1, maxW / img.width);
           const canvas = document.createElement('canvas');
-          let w = img.naturalWidth || img.width;
-          let h = img.naturalHeight || img.height;
-          const MAX = 600;
-          if (w > h) { if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; } }
-          else { if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; } }
-          canvas.width = w; canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) { reject(new Error('Canvas non supporté')); return; }
-          ctx.drawImage(img, 0, 0, w, h);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
-          const base64 = dataUrl.split(',')[1];
-          if (!base64 || base64.length < 50) { reject(new Error('Encodage échoué')); return; }
-          resolve(base64);
-        } catch(e) { reject(e); }
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.src = e.target.result;
       };
-      img.src = url;
+      reader.readAsDataURL(file);
     });
   }
 
-  // ── COPIER LIEN ───────────────────────────────────────────────────
-  function copierLien() {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      const btn = document.getElementById('btn-copier');
-      btn.textContent = 'Lien copié !';
-      setTimeout(() => { btn.textContent = 'Copier le lien'; }, 2000);
-    });
+  async function onPhotoSelected(input) {
+    const file = input.files[0];
+    if (!file) return;
+    document.getElementById('photo-label-text').textContent = 'Redimensionnement...';
+    _photoBase64 = await resizeImage(file, 600, 0.55);
+    const preview = document.getElementById('photo-preview');
+    preview.src = _photoBase64;
+    document.getElementById('photo-preview-wrap').style.display = 'block';
+    document.getElementById('photo-label-text').textContent = file.name;
   }
 
-  // ── PUBLIER POST ──────────────────────────────────────────────────
+  function removePhoto() {
+    _photoBase64 = '';
+    document.getElementById('f-photo').value = '';
+    document.getElementById('photo-label-text').textContent = 'Choisir une photo...';
+    document.getElementById('photo-preview-wrap').style.display = 'none';
+  }
+
   async function publierPost() {
     const titre = document.getElementById('f-titre').value.trim();
     const auteur = document.getElementById('f-auteur').value.trim();
     const date = document.getElementById('f-date').value;
     const contenu = document.getElementById('f-contenu').value.trim();
-    const code = document.getElementById('f-code').value.trim();
-    const photoInput = document.getElementById('f-photo');
-    const photoFile = photoInput.files[0] || null;
 
     if (!titre || !auteur || !contenu) {
       document.getElementById('form-error').style.display = 'block';
       document.getElementById('form-error').textContent = 'Remplis au moins le titre, ton prénom et le texte.';
       return;
     }
-    if (!code) {
-      document.getElementById('form-error').style.display = 'block';
-      document.getElementById('form-error').textContent = 'Entre le code du groupe pour publier.';
-      return;
-    }
 
     const btn = document.getElementById('btn-publier');
     btn.disabled = true;
-    btn.textContent = photoFile ? 'Upload en cours...' : 'Publication...';
+    btn.textContent = _photoBase64 ? 'Envoi de la photo...' : 'Publication...';
     document.getElementById('form-success').style.display = 'none';
     document.getElementById('form-error').style.display = 'none';
 
     try {
-      let photoBase64 = null, photoName = null, photoType = 'image/jpeg';
-      if (photoFile) {
-        photoBase64 = await fileToBase64(photoFile);
-        photoName = photoFile.name.replace(/\.[^.]+$/, '') + '.jpg';
-      }
       const res = await fetch('/.netlify/functions/add-post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ titre, auteur, date, contenu, photoBase64, photoName, photoType, code }),
+        body: JSON.stringify({ titre, auteur, date, contenu, photo: _photoBase64 }),
       });
       const data = await res.json();
       if (data.success) {
         document.getElementById('form-success').style.display = 'block';
         document.getElementById('f-titre').value = '';
         document.getElementById('f-auteur').value = '';
-        document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+        document.getElementById('f-date').value = '';
         document.getElementById('f-contenu').value = '';
-        document.getElementById('f-code').value = '';
-        photoInput.value = '';
-        document.getElementById('photo-preview').style.display = 'none';
+        removePhoto();
         setTimeout(() => chargerPosts('journal-posts', null), 1500);
-      } else if (data.error === 'Code incorrect') {
-        document.getElementById('form-error').style.display = 'block';
-        document.getElementById('form-error').textContent = 'Code incorrect ! Vérifie avec les chefs.';
       } else {
-        throw new Error(data.error || '');
+        throw new Error();
       }
-    } catch(e) {
+    } catch (e) {
       document.getElementById('form-error').style.display = 'block';
-      document.getElementById('form-error').textContent = 'Erreur : ' + (e.message || 'réessaie');
+      document.getElementById('form-error').textContent = 'Une erreur s\'est produite. Réessaie.';
     } finally {
       btn.disabled = false;
       btn.textContent = 'Publier';
     }
   }
 
-  // ── INIT ──────────────────────────────────────────────────────────
   chargerPosts('home-posts', 3);
-  chargerMeteo();
-  document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
 </script>
 </body>
 </html>
