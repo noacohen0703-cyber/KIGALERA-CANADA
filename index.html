@@ -183,8 +183,8 @@
     <div class="section-header"><div class="section-title">Itinéraire</div><div class="section-sub">7 – 21 juillet 2026</div></div>
     <div class="itin-list">
       <div class="itin-item"><div class="itin-left"><div class="itin-dates">7 – 14<br>juillet</div><div class="itin-nuits">7 nuits</div></div><div class="itin-right"><div class="itin-city">Montréal</div><img class="itin-photo" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200" alt="Montréal" onerror="this.style.display='none'" /></div></div>
-      <div class="itin-item"><div class="itin-left"><div class="itin-dates">14 – 16<br>juillet</div><div class="itin-nuits">2 nuits</div></div><div class="itin-right"><div class="itin-city">Chutes du Niagara</div><img class="itin-photo" src="https://images.unsplash.com/photo-1489447068241-b3490214e879?w=1200" alt="Niagara" onerror="this.style.display='none'" /></div></div>
-      <div class="itin-item"><div class="itin-left"><div class="itin-dates">16 – 21<br>juillet</div><div class="itin-nuits">5 nuits</div></div><div class="itin-right"><div class="itin-city">Toronto</div><img class="itin-photo" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1200" alt="Toronto" onerror="this.style.display='none'" /></div></div>
+      <div class="itin-item"><div class="itin-left"><div class="itin-dates">14 – 16<br>juillet</div><div class="itin-nuits">2 nuits</div></div><div class="itin-right"><div class="itin-city">Chutes du Niagara</div><img class="itin-photo" src="https://images.unsplash.com/photo-1533094602577-198d3beab8ea?w=1200" alt="Niagara" onerror="this.style.display='none'" /></div></div>
+      <div class="itin-item"><div class="itin-left"><div class="itin-dates">16 – 21<br>juillet</div><div class="itin-nuits">5 nuits</div></div><div class="itin-right"><div class="itin-city">Toronto</div><img class="itin-photo" src="https://images.unsplash.com/photo-1543962226-818f4301073f?w=1200" alt="Toronto" onerror="this.style.display='none'" /></div></div>
     </div>
   </div>
 </div>
@@ -192,14 +192,8 @@
 <div id="photos" class="page">
   <div class="section">
     <div class="section-header"><div class="section-title">Photos</div><div class="section-sub">Les moments du voyage</div></div>
-    <div class="photos-grid">
-      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
-      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
-      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
-      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
-      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
-      <div class="photo-cell"><div class="photo-placeholder">Photo à venir</div></div>
-    </div>
+    <div class="photos-grid" id="photos-grid">
+      <div class="loading" style="grid-column:1/-1;padding:3rem;text-align:center;font-size:14px;color:var(--gris)">Chargement...</div></div>
   </div>
 </div>
 
@@ -230,8 +224,27 @@
     if(el) el.classList.add('active');
     window.scrollTo(0,0);
     if(id==='journal') chargerPosts('journal-posts',null);
+    if(id==='photos') chargerPhotos();
   }
-  function formatDate(d){ if(!d) return ''; return new Date(d).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}); }
+  async function chargerPhotos() {
+      const grid = document.getElementById('photos-grid');
+      if (!grid) return;
+      grid.innerHTML = '<div class="loading" style="grid-column:1/-1;padding:3rem;text-align:center;font-size:14px;color:var(--gris)">Chargement...</div>';
+      try {
+        const res = await fetch('/.netlify/functions/get-posts');
+        const posts = await res.json();
+        const withPhotos = posts.filter(p => p.photo);
+        if (!withPhotos.length) {
+          grid.innerHTML = '<div class="loading" style="grid-column:1/-1;padding:3rem;text-align:center;font-size:14px;color:var(--gris)">Aucune photo pour l\'instant.</div>';
+          return;
+        }
+        grid.innerHTML = withPhotos.map(p => '<div class="photo-cell"><img src="' + p.photo + '" alt="' + (p.titre||'') + '" loading="lazy" /></div>').join('');
+      } catch(e) {
+        grid.innerHTML = '<div class="loading" style="grid-column:1/-1;padding:3rem;text-align:center;font-size:14px;color:var(--gris)">Impossible de charger.</div>';
+      }
+    }
+  
+    function formatDate(d){ if(!d) return ''; return new Date(d).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}); }
   function renderPosts(posts,containerId,limit){
     const c=document.getElementById(containerId);
     if(!posts||!posts.length){ c.innerHTML='<div class="journal-empty">Aucun post pour l\'instant.</div>'; return; }
